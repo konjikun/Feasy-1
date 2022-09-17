@@ -20,6 +20,7 @@ module.exports = {
     feasy: true,
     modalPrep: true,
     buttonAppend: true,
+    on: true,
     $: true,
   },
 

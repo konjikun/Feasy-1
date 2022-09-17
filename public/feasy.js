@@ -1,10 +1,3 @@
-/*;<script
-  src="https://code.jquery.com/jquery-3.6.1.js"
-  integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-  crossOrigin="anonymous"
-/>
-*/
-
 const feasy = {
   buttonAppend: (buttonPosition) => {
     $(buttonPosition).append(
@@ -18,63 +11,17 @@ const feasy = {
       )
     })
   },
-  modalPrep: () => {
-    window.addEventListener('message', (event) => {
-      if (event.origin !== 'https://yoshi-program.github.io') {
-        return
-      }
-      const getdata = event.data
-      if (getdata) {
-        switch (getdata.type) {
-          case 'loaded': {
-            first()
-            break
-          }
-          case 'storage': {
-            twice(getdata)
-            break
-          }
-        }
-      } else {
-        $('#modalArea').fadeOut()
-      }
+  on: (func) => {
+    window.addEventListener('message', (e) => {
+      func(e.data)
     })
   },
+  sendData: (demandData) => {
+    $('#childIframe')[0].contentWindow.postMessage(
+      demandData,
+      'https://yoshi-program.github.io/Feasy'
+    )
+    $('#modalArea').fadeIn()
+  },
 }
-
-function first() {
-  //const dataList = Object.keys(demandData)
-
-  $('#childIframe')[0].contentWindow.postMessage(dataList, 'https://yoshi-program.github.io/modal')
-  $('#modalArea').fadeIn()
-}
-
-function twice(getdata) {
-  console.log(getdata)
-  $('#modalArea').fadeOut()
-  for (let i = 0; i < length.dataList; i++) {
-    $(idData[i]).val(getdata[i].val)
-    break
-  }
-}
-
-//うちこませる
-
-/* eslint-disable*/
-const demandData = {
-  name_hurigana: 'moushikomiShimeiKn',
-  name_kanji: 'moushikomiShimeiKj',
-  email: 'moushikomiMail',
-  email: 'confirmMoushikomiMail',
-  tel1: 'moushikomiPhoneNo1',
-  tel2: 'moushikomiPhonNo2',
-  tel3: 'moushikomiPhoneNo3',
-}
-/* eslint-disable*/
-
-const dataList = Object.keys(demandData)
-console.log(dataList)
-const idData = Object.values(demandData)
-console.log(idData)
-
 window.feasy = feasy
