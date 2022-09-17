@@ -50,6 +50,7 @@ feasy.on('data', (getdata) => {
         $('#town_a').val(getdata.val.town_name_block_number)
         $('#house_a').val(getdata.val.building_name)
         $('#tel_a').val(getdata.val.tel1 + getdata.val.tel2 + getdata.val.tel3)
+        $('#BN').val(getdata.val.school_name)
         break
     }
   } else {
