@@ -171,6 +171,15 @@ type Base = {
   tel1?: string
   tel2?: string
   tel3?: string
+  school_name?: string
+  school_zip_code?: string
+  school_prefecture?: string
+  school_municipalities?: string
+  school_town_name_block_number?: string
+  school_building_name?: string
+  school_tel1?: string
+  school_tel2?: string
+  school_tel3?: string
 }
 
 const Home: NextPage = () => {
@@ -390,6 +399,15 @@ const Home: NextPage = () => {
     tel1: '電話番号1 ●●●-◯◯◯◯-◯◯◯◯',
     tel2: '電話番号2 ◯◯◯-●●●●-◯◯◯◯',
     tel3: '電話番号3 ◯◯◯-◯◯◯◯-●●●●',
+    school_name: '学校名',
+    school_zip_code: '郵便番号（学校）',
+    school_prefecture: '都道府県（学校）',
+    school_municipalities: '市区町村（学校）',
+    school_town_name_block_number: '町名・番地（学校）',
+    school_building_name: 'ビル・マンション名（学校）',
+    school_tel1: '電話番号1（学校） ●●●-◯◯◯◯-◯◯◯◯',
+    school_tel2: '電話番号2（学校） ◯◯◯-●●●●-◯◯◯◯',
+    school_tel3: '電話番号3（学校） ◯◯◯-◯◯◯◯-●●●●',
   }
 
   return (
