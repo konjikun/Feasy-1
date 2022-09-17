@@ -18,6 +18,7 @@ module.exports = {
 
   globals: {
     feasy: true,
+    $: true,
   },
 
   settings: {
