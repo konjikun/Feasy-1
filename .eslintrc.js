@@ -15,6 +15,11 @@ module.exports = {
     node: true,
     es6: true,
   },
+
+  globals: {
+    feasy: true,
+  },
+
   settings: {
     react: {
       version: 'detect',
