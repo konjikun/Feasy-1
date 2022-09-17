@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -95,6 +96,21 @@ const OKButton = styled.button`
 
 const Home: NextPage = () => {
   const localStorageKey = 'Feasy'
+
+  const [firstTime, setFirstTime] = useState(false)
+  const [passwordPage, setPasswordPage] = useState(true)
+
+  useEffect(() => {
+    // 親サイトにiframeが動作確認用のpostMessage
+    parent.postMessage('loaded', '*')
+  }, [])
+
+  useEffect(() => {
+    if (!localStorage.getItem(localStorageKey)) {
+      setFirstTime(true)
+    }
+  }, [])
+
   return (
     <Container>
       <ModalArea>
@@ -104,11 +120,30 @@ const Home: NextPage = () => {
             <XText>×</XText>
           </TitleCircle>
         </TitleArea>
-        <MainArea />
-        <ButtonArea>
-          <NOButton>閉じる</NOButton>
-          <OKButton>OK</OKButton>
-        </ButtonArea>
+        {firstTime ? (
+          <>
+            <MainArea />
+            <ButtonArea>
+              <NOButton>閉じる</NOButton>
+              <OKButton>OK</OKButton>
+            </ButtonArea>
+          </>
+        ) : passwordPage ? (
+          <>
+            <MainArea />
+            <ButtonArea>
+              <NOButton>閉じる</NOButton>
+              <OKButton>OK</OKButton>
+            </ButtonArea>
+          </>
+        ) : (
+          <DataTextArea>
+            <ButtonArea>
+              <NOButton>閉じる</NOButton>
+              <OKButton>OK</OKButton>
+            </ButtonArea>
+          </DataTextArea>
+        )}
       </ModalArea>
     </Container>
   )
