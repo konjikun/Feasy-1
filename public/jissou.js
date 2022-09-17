@@ -5,7 +5,7 @@ function buttonAppend(buttonPosition) {
   $('#modalBtn').click(function () {
     $('#contents').append(
       '<section style="display: none; position: fixed; top:0;left:0;width:100%;height:100%;"id="modalArea" class="modalArea">\
-      <iframe style="position: absolute; top: 50%; left: 50%; transform:translate(-50%,-50%); border:none; width:100%; height:100vh;" height="360" id="childIframe" src="https://yoshi-program.github.io/modal"></iframe>\
+      <iframe style="position: absolute; top: 50%; left: 50%; transform:translate(-50%,-50%); border:none; width:100%; height:100vh;" height="360" id="childIframe" src="https://yoshi-program.github.io/Feasy"></iframe>\
       </section>'
     )
   })
@@ -35,34 +35,36 @@ function modalPrep() {
 function first(dataList) {
   //const dataList = Object.keys(demandData)
 
-  $('#childIframe')[0].contentWindow.postMessage(dataList, 'https://yoshi-program.github.io/modal')
+  $('#childIframe')[0].contentWindow.postMessage(dataList, 'https://yoshi-program.github.io/Feasy')
   $('#modalArea').fadeIn()
 }
 
 function twice(getdata) {
+  getdata = Object.values(getdata)
+  getdata = getdata[1]
+  getdata = Object.values(getdata)
   console.log(getdata)
   $('#modalArea').fadeOut()
-  for (let i = 0; i < length.dataList; i++) {
-    $(idData[i]).val(getdata[i].val)
-    break
+  for (let i = 0; i < dataList.length; i++) {
+    console.log(getdata[i])
+    console.log(idData[i])
+    document.getElementById(idData[i]).value = getdata[i]
   }
 }
 
-/* eslint-disable*/
 const demandData = {
-  name_hurigana: 'moushikomiShimeiKn',
-  name_kanji: 'moushikomiShimeiKj',
-  email: 'moushikomiMail',
-  email: 'confirmMoushikomiMail',
-  tel1: 'moushikomiPhoneNo1',
-  tel2: 'moushikomiPhonNo2',
-  tel3: 'moushikomiPhoneNo3',
+  moushikomiShimeiKn: 'name_hurigana',
+  moushikomiShimeiKj: 'name_kanji',
+  moushikomiMail: 'email',
+  confirmMoushikomiMail: 'mail',
+  moushikomiPhoneNo1: 'tel1',
+  moushikomiPhoneNo2: 'tel2',
+  moushikomiPhoneNo3: 'tel3',
 }
-/* eslint-disable*/
 
-const dataList = Object.keys(demandData)
+const dataList = Object.values(demandData)
 console.log(dataList)
-const idData = Object.values(demandData)
+const idData = Object.keys(demandData)
 console.log(idData)
 
 buttonAppend('#contents')
