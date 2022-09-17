@@ -18,6 +18,9 @@ module.exports = {
 
   globals: {
     feasy: true,
+    modalPrep: true,
+    buttonAppend: true,
+    $: true,
   },
 
   settings: {
@@ -34,6 +37,7 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    'no-unused-vars': 'off',
     'react/self-closing-comp': 'error',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
