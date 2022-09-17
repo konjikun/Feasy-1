@@ -398,7 +398,7 @@ const Home: NextPage = () => {
               <TextPassword num={1}>パスワード</TextPassword>
               <InputPasswordRegister
                 num={1}
-                type="password"
+                type={inputPasswordType}
                 name="password"
                 defaultValue=""
                 autoFocus={true}
@@ -409,7 +409,7 @@ const Home: NextPage = () => {
               <TextPassword num={2}>確認</TextPassword>
               <InputPasswordRegister
                 num={2}
-                type="password"
+                type={inputPasswordType}
                 name="password"
                 defaultValue=""
                 autoComplete="new-password"
