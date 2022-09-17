@@ -94,11 +94,33 @@ const OKButton = styled.button`
   }
 `
 
+type Base = {
+  lastname_furigana?: string
+  firstname_furigana?: string
+  lastname_kanji?: string
+  firstname_kanji?: string
+}
+
 const Home: NextPage = () => {
   const localStorageKey = 'Feasy'
 
   const [firstTime, setFirstTime] = useState(false)
   const [passwordPage, setPasswordPage] = useState(true)
+
+  // 親から受け取る情報
+  const [href, setHref] = useState('')
+  const [dataList, setDataList] = useState<(keyof Base)[]>([])
+
+  const post = () => {
+    if (passwordPage) {
+      setPasswordPage(false)
+    }
+    // parent.postMessage(data, href)
+  }
+
+  const noPost = () => {
+    parent.postMessage(null, href)
+  }
 
   useEffect(() => {
     // 親サイトにiframeが動作確認用のpostMessage
@@ -109,6 +131,10 @@ const Home: NextPage = () => {
     if (!localStorage.getItem(localStorageKey)) {
       setFirstTime(true)
     }
+    window.addEventListener('message', (e) => {
+      setHref(e.origin)
+      setDataList(e.data)
+    })
   }, [])
 
   return (
@@ -117,30 +143,30 @@ const Home: NextPage = () => {
         <TitleArea>
           <TextTitle>Feasyで入力</TextTitle>
           <TitleCircle>
-            <XText>×</XText>
+            <XText onClick={noPost}>×</XText>
           </TitleCircle>
         </TitleArea>
         {firstTime ? (
           <>
             <MainArea />
             <ButtonArea>
-              <NOButton>閉じる</NOButton>
-              <OKButton>OK</OKButton>
+              <NOButton onClick={noPost}>閉じる</NOButton>
+              <OKButton onClick={post}>OK</OKButton>
             </ButtonArea>
           </>
         ) : passwordPage ? (
           <>
             <MainArea />
             <ButtonArea>
-              <NOButton>閉じる</NOButton>
-              <OKButton>OK</OKButton>
+              <NOButton onClick={noPost}>閉じる</NOButton>
+              <OKButton onClick={post}>OK</OKButton>
             </ButtonArea>
           </>
         ) : (
           <DataTextArea>
             <ButtonArea>
-              <NOButton>閉じる</NOButton>
-              <OKButton>OK</OKButton>
+              <NOButton onClick={noPost}>閉じる</NOButton>
+              <OKButton onClick={post}>OK</OKButton>
             </ButtonArea>
           </DataTextArea>
         )}
