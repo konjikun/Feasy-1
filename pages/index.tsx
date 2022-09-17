@@ -59,8 +59,8 @@ const TextPassword = styled.div<{ num: number }>`
 `
 const XText = styled.div`
   position: fixed;
-  top: 2%;
-  left: 90%;
+  top: 1%;
+  left: 89.8%;
   margin: 10px;
   font-size: 30px;
   color: #3c78d8;
