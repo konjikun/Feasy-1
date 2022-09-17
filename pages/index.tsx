@@ -156,12 +156,17 @@ const InputData = styled.input`
 const InputDataArea = styled.div`
   border-bottom: dashed 1px #3509bb;
 `
-// 水道局（一旦）
+// Yahoo（一旦）
 type Base = {
-  name_hurigana?: string
-  name_kanji?: string
-  address?: string
+  familyname_kanji?: string
+  firstname_kanji?: string
+  familyname_hurigana?: string
+  firstname_hurigana?: string
   zip_code?: string
+  prefecture?: string
+  municipalities?: string
+  town_name_block_number?: string
+  building_name?: string
   email?: string
   tel1?: string
   tel2?: string
@@ -370,12 +375,17 @@ const Home: NextPage = () => {
     })
   }, [])
 
-  // 東京都水道局用テスト
+  // Yahoo用テスト
   const modalText: Base = {
-    name_hurigana: '名前(フリガナ)',
-    name_kanji: '名前(漢字)',
-    zip_code: '郵便番号',
-    address: '住所',
+    familyname_kanji: '姓(漢字)',
+    firstname_kanji: '名(漢字)',
+    familyname_hurigana: '姓(フリガナ)',
+    firstname_hurigana: '名（フリガナ）',
+    zip_code: '郵便番号（自宅）',
+    prefecture: '都道府県（自宅）',
+    municipalities: '市区町村（自宅）',
+    town_name_block_number: '町名・番地（自宅）',
+    building_name: 'ビル・マンション名（自宅）',
     email: 'メールアドレス',
     tel1: '電話番号1 ●●●-◯◯◯◯-◯◯◯◯',
     tel2: '電話番号2 ◯◯◯-●●●●-◯◯◯◯',
