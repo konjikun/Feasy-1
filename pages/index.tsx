@@ -362,7 +362,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     // 親サイトにiframeが動作確認用のpostMessage
-    parent.postMessage('loaded', '*')
+    parent.postMessage({ type: 'loaded' }, '*')
   }, [])
 
   useEffect(() => {
