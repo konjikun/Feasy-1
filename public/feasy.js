@@ -1,8 +1,9 @@
-;<script
+/*;<script
   src="https://code.jquery.com/jquery-3.6.1.js"
   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
   crossOrigin="anonymous"
 />
+*/
 
 const feasy = {
   buttonAppend: (buttonPosition) => {
@@ -15,6 +16,11 @@ const feasy = {
         <iframe style="position: absolute; top: 50%; left: 50%; transform:translate(-50%,-50%); border:none; width:100%; height:100vh;" height="360" id="childIframe" src="https://yoshi-program.github.io/Feasy"></iframe>\
         </section>'
       )
+    })
+  },
+  modalPrep: () => {
+    window.addEventListener('message', (event) => {
+      console.log('message')
     })
   },
 }
