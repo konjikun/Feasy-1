@@ -123,11 +123,49 @@ const CheckBoxPassword = styled.input`
   margin-left: 175px;
   transform: scale(1.2);
 `
+const Li = styled.li<{ num: number }>`
+  margin: 10px;
+  margin-bottom: ${(p) => (p.num === 1 ? '10px' : '0')};
+  font-size: 19px;
+  line-height: 1.5;
+  list-style-type: none !important;
+  border-bottom: ${(p) => (p.num === 1 ? 'dashed 1px #3509bb' : 'none')};
+
+  ::before {
+    position: relative;
+    top: -3px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 8px;
+    content: '';
+    background-color: #6d9eeb;
+    border-radius: 50%;
+  }
+`
+const InputData = styled.input`
+  width: 250px;
+  height: 35px;
+  margin: 10px;
+  margin-top: 0;
+  margin-left: 30px;
+  font-size: 19px;
+  border: solid;
+  border-radius: 5px;
+`
+const InputDataArea = styled.div`
+  border-bottom: dashed 1px #3509bb;
+`
+// 水道局（一旦）
 type Base = {
-  lastname_furigana?: string
-  firstname_furigana?: string
-  lastname_kanji?: string
-  firstname_kanji?: string
+  name_hurigana?: string
+  name_kanji?: string
+  address?: string
+  zip_code?: string
+  email?: string
+  tel1?: string
+  tel2?: string
+  tel3?: string
 }
 
 const Home: NextPage = () => {
@@ -289,11 +327,33 @@ const Home: NextPage = () => {
     }
   }
 
-  const post = () => {
+  const post = async () => {
     if (passwordPage) {
-      setPasswordPage(false)
+      if (!passwordForm) return
+      const decrypted = await getData(passwordForm)
+      if (decrypted) {
+        setMainData(JSON.parse(decrypted))
+        setPassword(passwordForm)
+        setPasswordPage(false)
+      }
+      return
+    } else {
+      setMainData({ ...mainData, ...addData })
+      const newDecrypted = { ...mainData, ...addData }
+
+      const getObject: Base = newDecrypted
+      const postData: Base = {}
+      dataList.map((d) => {
+        if (getObject[`${d}`]) {
+          postData[d] = getObject[`${d}`]
+        }
+      })
+
+      const encrypted = await encrypt(JSON.stringify(newDecrypted), password)
+      localStorage.setItem(localStorageKey, encrypted)
+
+      parent.postMessage({ type: 'storage', val: postData }, href)
     }
-    // parent.postMessage(data, href)
   }
 
   const noPost = () => {
@@ -314,6 +374,18 @@ const Home: NextPage = () => {
       setDataList(e.data)
     })
   }, [])
+
+  // 東京都水道局用テスト
+  const modalText: Base = {
+    name_hurigana: '名前(フリガナ)',
+    name_kanji: '名前(漢字)',
+    zip_code: '郵便番号',
+    address: '住所',
+    email: 'メールアドレス',
+    tel1: '電話番号1',
+    tel2: '電話番号2',
+    tel3: '電話番号3',
+  }
 
   return (
     <Container>
@@ -370,9 +442,19 @@ const Home: NextPage = () => {
             <MainArea>
               <TextNormal>パスワード入力</TextNormal>
               <TextPassword num={3}>パスワード</TextPassword>
-              <InputPassword />
+              <InputPassword
+                type="password"
+                name="password"
+                id="password"
+                onChange={(event) => setPasswordForm(event.target.value)}
+              />
               <TextMini>
-                <CheckBoxPassword type="checkbox" />
+                <CheckBoxPassword
+                  type="checkbox"
+                  defaultChecked={false}
+                  id="input-checkbox"
+                  onChange={(e) => displayPassword(e.target.checked)}
+                />
                 パスワードを表示します
               </TextMini>
             </MainArea>
@@ -383,6 +465,24 @@ const Home: NextPage = () => {
           </>
         ) : (
           <DataTextArea>
+            <TextNormal>以下の項目を許可しますか？</TextNormal>
+            <TextMini>（初めての項目は記入してください）</TextMini>
+            {dataList.map((d) =>
+              modalText[d] && mainData[d] ? (
+                <Li key={d} num={1}>
+                  {modalText[d]}
+                </Li>
+              ) : (
+                <InputDataArea>
+                  <Li num={2}>{modalText[d]}</Li>
+                  <InputData
+                    onChange={(event) => {
+                      setAddData({ ...addData, [d]: `${event.target.value}` })
+                    }}
+                  />
+                </InputDataArea>
+              )
+            )}
             <ButtonArea>
               <NOButton onClick={noPost}>閉じる</NOButton>
               <OKButton onClick={post}>OK</OKButton>
