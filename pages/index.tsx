@@ -133,12 +133,126 @@ type Base = {
 const Home: NextPage = () => {
   const localStorageKey = 'Feasy'
 
+  // ページ遷移のstate
   const [firstTime, setFirstTime] = useState(false)
   const [passwordPage, setPasswordPage] = useState(true)
 
   // 親から受け取る情報
   const [href, setHref] = useState('')
   const [dataList, setDataList] = useState<(keyof Base)[]>([])
+
+  // LocalStorageを復号したdata
+  const [mainData, setMainData] = useState<Base>({})
+
+  // パスワード関係のstate
+  const [passwordForm, setPasswordForm] = useState('')
+
+  // AES暗号
+  // 鍵生成
+  const getKey = async (
+    passphrase: string,
+    salt: Uint8Array | null = null
+  ): Promise<[CryptoKey, Uint8Array]> => {
+    const passphrase2 = new TextEncoder().encode(passphrase)
+    const digest = await crypto.subtle.digest({ name: 'SHA-256' }, passphrase2)
+    const keyMaterial = await crypto.subtle.importKey('raw', digest, { name: 'PBKDF2' }, false, [
+      'deriveKey',
+    ])
+    if (!salt) salt = crypto.getRandomValues(new Uint8Array(16))
+    const key = await crypto.subtle.deriveKey(
+      {
+        name: 'PBKDF2',
+        salt,
+        iterations: 100000,
+        hash: 'SHA-256',
+      },
+      keyMaterial,
+      { name: 'AES-GCM', length: 256 },
+      false,
+      ['encrypt', 'decrypt']
+    )
+    return [key, salt]
+  }
+
+  // 初期ベクトル固定部96bitを得る関数
+  const getFixedField = () => {
+    const value = localStorage.getItem('96bitIVFixedField')
+    if (value) return Uint8Array.from(JSON.parse(value))
+    const value2 = crypto.getRandomValues(new Uint8Array(12))
+    localStorage.setItem('96bitIVFixedField', JSON.stringify(Array.from(value2)))
+    return value2
+  }
+
+  // 初期ベクトル変動部32bitを得る関数
+  const getInvocationField = () => {
+    const counter = localStorage.getItem('32bitLastCounter')
+    let counter2: Uint32Array | null = null
+    if (counter) counter2 = Uint32Array.from(JSON.parse(counter))
+    else counter2 = new Uint32Array(1)
+    counter2[0]++
+    localStorage.setItem('32bitLastCounter', JSON.stringify(Array.from(counter2)))
+    return counter2
+  }
+
+  // 暗号化関数
+  const encrypt = async (input: string, passphrase: string) => {
+    const [key, salt] = await getKey(passphrase)
+    const fixedPart = getFixedField()
+    const invocationPart = getInvocationField()
+    const iv = Uint8Array.from([...fixedPart, ...new Uint8Array(invocationPart.buffer)])
+
+    let encryptedData = await crypto.subtle.encrypt(
+      { name: 'AES-GCM', iv: iv },
+      key,
+      new TextEncoder().encode(JSON.stringify(input))
+    )
+    encryptedData = Array.from(new Uint8Array(encryptedData), (char) =>
+      String.fromCharCode(char)
+    ).join('')
+    return JSON.stringify([
+      Buffer.from(encryptedData).toString('base64'),
+      Array.from(invocationPart),
+      Array.from(salt),
+    ])
+  }
+
+  // 復号関数
+  const decrypt = async (encryptedResult: string, passphrase: string) => {
+    const [encryptedData, invocationPart, salt] = JSON.parse(encryptedResult)
+    const [key, _] = await getKey(passphrase, Uint8Array.from(salt))
+    const invocationPartTypedArray = new Uint32Array(1)
+    invocationPartTypedArray[0] = invocationPart
+    const iv = Uint8Array.from([
+      ...getFixedField(),
+      ...new Uint8Array(invocationPartTypedArray.buffer),
+    ])
+    const encryptedDataString = Buffer.from(encryptedData, 'base64').toString()
+    const encryptedDataBinary = Uint8Array.from(encryptedDataString.split(''), (char) =>
+      char.charCodeAt(0)
+    )
+    const decryptedDataBinary = await crypto.subtle.decrypt(
+      { name: 'AES-GCM', iv: iv },
+      key,
+      encryptedDataBinary
+    )
+    const decryptedDataString = new TextDecoder().decode(new Uint8Array(decryptedDataBinary))
+    return JSON.parse(decryptedDataString)
+  }
+
+  // Local Storageからデータを復号し、返す関数
+  const getData = async (password: string) => {
+    const localStorageData = localStorage.getItem(localStorageKey)
+    if (localStorageData) {
+      const decrypted = await decrypt(localStorageData, password).catch(() => {
+        alert('パスワードが間違っています')
+        setPasswordForm('')
+        return false
+      })
+      if (decrypted) {
+        return decrypted
+      }
+    }
+  }
 
   const post = () => {
     if (passwordPage) {
