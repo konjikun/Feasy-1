@@ -141,11 +141,15 @@ const Home: NextPage = () => {
   const [href, setHref] = useState('')
   const [dataList, setDataList] = useState<(keyof Base)[]>([])
 
-  // LocalStorageを復号したdata
+  // LocalStorageを復号したデータ、追加するデータ
   const [mainData, setMainData] = useState<Base>({})
+  const [addData, setAddData] = useState({})
 
   // パスワード関係のstate
+  const [inputPassword1, setInputPassword1] = useState('')
+  const [inputPassword2, setInputPassword2] = useState('')
   const [passwordForm, setPasswordForm] = useState('')
+  const [password, setPassword] = useState('')
 
   // AES暗号
   // 鍵生成
@@ -254,6 +258,37 @@ const Home: NextPage = () => {
     }
   }
 
+  // checkboxでパスワードを表示する関数
+  const displayPassword = (checked: boolean) => {
+    const InputPasswordElement1 = document.getElementById('input-password-register1')
+    const InputPasswordElement2 = document.getElementById('input-password-register2')
+    const InputPasswordElement3 = document.getElementById('password')
+    if (InputPasswordElement1) {
+      ;(InputPasswordElement1 as HTMLInputElement).type = checked ? 'text' : 'password'
+    }
+    if (InputPasswordElement2) {
+      ;(InputPasswordElement2 as HTMLInputElement).type = checked ? 'text' : 'password'
+    }
+    if (InputPasswordElement3) {
+      ;(InputPasswordElement3 as HTMLInputElement).type = checked ? 'text' : 'password'
+    }
+  }
+
+  // パスワード登録
+  const register = async () => {
+    if (inputPassword1 && inputPassword1 !== inputPassword2) {
+      alert('同じパスワードを入力してください')
+      const InputPasswordElement = document.getElementById('input-password-register2')
+      if (InputPasswordElement) {
+        ;(InputPasswordElement as HTMLInputElement).value = ''
+      }
+    } else {
+      const firstData = await encrypt('{}', inputPassword1)
+      localStorage.setItem(localStorageKey, firstData)
+      setFirstTime(false)
+    }
+  }
+
   const post = () => {
     if (passwordPage) {
       setPasswordPage(false)
@@ -294,19 +329,40 @@ const Home: NextPage = () => {
             <MainArea>
               <TextNormal>パスワード登録</TextNormal>
               <TextPassword num={1}>パスワード</TextPassword>
-              <InputPasswordRegister num={1} />
+              <InputPasswordRegister
+                num={1}
+                type="password"
+                name="password"
+                defaultValue=""
+                id="input-password-register1"
+                autoComplete="new-password"
+                onChange={(event) => setInputPassword1(event.target.value)}
+              />
               <br />
               <TextPassword num={2}>確認</TextPassword>
-              <InputPasswordRegister num={2} />
+              <InputPasswordRegister
+                num={2}
+                type="password"
+                name="password"
+                defaultValue=""
+                id="input-password-register2"
+                autoComplete="new-password"
+                onChange={(event) => setInputPassword2(event.target.value)}
+              />
               <TextMini>
-                <CheckBoxPassword type="checkbox" />
+                <CheckBoxPassword
+                  type="checkbox"
+                  defaultChecked={false}
+                  id="input-checkbox"
+                  onChange={(e) => displayPassword(e.target.checked)}
+                />
                 パスワードを表示します
               </TextMini>
             </MainArea>
 
             <ButtonArea>
               <NOButton onClick={noPost}>閉じる</NOButton>
-              <OKButton onClick={post}>登録</OKButton>
+              <OKButton onClick={register}>登録</OKButton>
             </ButtonArea>
           </>
         ) : passwordPage ? (
