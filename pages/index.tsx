@@ -53,7 +53,7 @@ const TextTitle = styled.div`
 `
 const TextPassword = styled.div<{ num: number }>`
   position: fixed;
-  top: ${(p) => (p.num === 1 ? 'default' : '47%')};
+  top: ${(p) => (p.num === 1 ? 'default' : p.num === 2 ? '47%' : '37%')};
   left: 27%;
   font-size: 18px;
 `
@@ -102,14 +102,20 @@ const OKButton = styled.button`
     background-color: #00a6ff;
   }
 `
-const InputPasswordRegister = styled.input<{ num: number }>`
+const InputPassword = styled.input`
   position: fixed;
-  top: ${(p) => (p.num === 1 ? '38%' : '57%')};
+  top: 45%;
   left: 50%;
   width: 250px;
   height: 40px;
+  margin: 10px;
+  margin-left: 1px;
   font-size: 20px;
   transform: translate(-50%, -50%);
+`
+const InputPasswordRegister = styled(InputPassword)<{ num: number }>`
+  top: ${(p) => (p.num === 1 ? '38%' : '57%')};
+  margin: auto;
 `
 const CheckBoxPassword = styled.input`
   margin-top: 150px;
@@ -117,7 +123,6 @@ const CheckBoxPassword = styled.input`
   margin-left: 175px;
   transform: scale(1.2);
 `
-
 type Base = {
   lastname_furigana?: string
   firstname_furigana?: string
@@ -128,7 +133,7 @@ type Base = {
 const Home: NextPage = () => {
   const localStorageKey = 'Feasy'
 
-  const [firstTime, setFirstTime] = useState(true)
+  const [firstTime, setFirstTime] = useState(false)
   const [passwordPage, setPasswordPage] = useState(true)
 
   // 親から受け取る情報
@@ -192,7 +197,15 @@ const Home: NextPage = () => {
           </>
         ) : passwordPage ? (
           <>
-            <MainArea />
+            <MainArea>
+              <TextNormal>パスワード入力</TextNormal>
+              <TextPassword num={3}>パスワード</TextPassword>
+              <InputPassword />
+              <TextMini>
+                <CheckBoxPassword type="checkbox" />
+                パスワードを表示します
+              </TextMini>
+            </MainArea>
             <ButtonArea>
               <NOButton onClick={noPost}>閉じる</NOButton>
               <OKButton onClick={post}>OK</OKButton>
