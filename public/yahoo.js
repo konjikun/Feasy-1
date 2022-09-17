@@ -21,21 +21,25 @@ const dataList = [
   'tel1',
   'tel2',
   'tel3',
+  'school_name',
+  'school_zip_code',
+  'school_prefecture',
+  'school_municipalities',
+  'school_town_name_block_number',
+  'school_building_name',
+  'school_tel1',
+  'school_tel2',
+  'school_tel3',
 ]
 
-const btn = feasy.createBtn()
-$('#context').append(btn)
-btn.click(function () {
-  const iframe = feasy.createIframe()
-  $('#context').append(iframe)
-})
-feasy.on('data', (getdata) => {
+feasy.buttonAppend('.mainFrame')
+feasy.on((getdata) => {
   if (getdata) {
     console.log(getdata)
     switch (getdata.type) {
       case 'loaded':
         console.log(1)
-        feasy.send(dataList)
+        feasy.sendData(dataList)
         $('#modalArea').fadeIn()
         break
       case 'storage':
@@ -51,6 +55,14 @@ feasy.on('data', (getdata) => {
         $('#house_a').val(getdata.val.building_name)
         $('#tel_a').val(getdata.val.tel1 + getdata.val.tel2 + getdata.val.tel3)
         $('#BN').val(getdata.val.school_name)
+        $('#postalCode_b').val(getdata.val.school_zip_code)
+        $('#address_b').val(getdata.val.school_prefecture)
+        $('#city_b').val(getdata.val.school_municipalities)
+        $('#town_b').val(getdata.val.school_town_name_block_number)
+        $('#house_b').val(getdata.val.school_building_name)
+        $('#tel_b').val(getdata.school_tel1)
+        $('#fax_b').val(getdata.school_tel2)
+        $('#contact_b').val(getdata.school_tel3)
         break
     }
   } else {
