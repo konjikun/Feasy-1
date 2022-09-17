@@ -1,8 +1,35 @@
 const feasy = {
   buttonAppend: (buttonPosition) => {
     $(buttonPosition).append(
-      '<input style="width: 10em; height:3em;" type="button" value="feasyから入力" width=500 height=100 id="modalBtn">'
+      '<input style="width: 10em; height:3em;" type="button" value="feasyから入力" width=500 height=100 id="modalBtn" class="modalBtn">'
     )
+    //$('#modalBtn').css('background-color', 'red')
+
+    $('.modalBtn').css({
+      display: 'inlineblock',
+      'background-color': '#0C88CA',
+      color: '#000',
+      width: '160px',
+      padding: '0.8em',
+      'text-decoration': 'none',
+      'border-radius': '4px',
+      'box-shadow':
+        '0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2)',
+      '-webkit-tap-highlight-color': 'transparent',
+      transition: '.3s ease-out',
+    })
+    $('.modalBtn').hover(function () {
+      $(this).css({
+        cursor: 'pointer',
+        'text-decoration': 'none',
+        background: '#005691',
+        transform: 'translate3d(0, 4px, 0)',
+        transition: '.0s',
+        'border-bottom': 'none',
+      })
+    })
+    //cursor: pointer; text-decoration: none; background:#005691; transform: translate3d(0, 4px, 0); transition: .0s; border-bottom: none;
+
     $('#modalBtn').click(function () {
       $('#contents').append(
         '<section style="display: none; position: fixed; top:0;left:0;width:100%;height:100%;"id="modalArea" class="modalArea">\

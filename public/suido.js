@@ -2,6 +2,7 @@ const a = document.createElement('script')
 a.src = 'http://localhost:3000/feasy.js'
 a.type = 'text/javascript'
 document.head.appendChild(a)
+
 const dataList = [
   'familyname_hurigana',
   'firstname_hurigana',
