@@ -18,6 +18,8 @@ module.exports = {
 
   globals: {
     feasy: true,
+    modalPrep: true,
+    buttonAppend: true,
     $: true,
   },
 
