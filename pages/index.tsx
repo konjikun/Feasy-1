@@ -189,6 +189,8 @@ const Home: NextPage = () => {
   const [passwordForm, setPasswordForm] = useState('')
   const [password, setPassword] = useState('')
 
+  const [inputPasswordType, setInputPasswordType] = useState('password')
+
   // AES暗号
   // 鍵生成
   const getKey = async (
@@ -297,18 +299,11 @@ const Home: NextPage = () => {
   }
 
   // checkboxでパスワードを表示する関数
-  const displayPassword = (checked: boolean) => {
-    const InputPasswordElement1 = document.getElementById('input-password-register1')
-    const InputPasswordElement2 = document.getElementById('input-password-register2')
-    const InputPasswordElement3 = document.getElementById('password')
-    if (InputPasswordElement1) {
-      ;(InputPasswordElement1 as HTMLInputElement).type = checked ? 'text' : 'password'
-    }
-    if (InputPasswordElement2) {
-      ;(InputPasswordElement2 as HTMLInputElement).type = checked ? 'text' : 'password'
-    }
-    if (InputPasswordElement3) {
-      ;(InputPasswordElement3 as HTMLInputElement).type = checked ? 'text' : 'password'
+  const displayPassword = (state: string) => {
+    if (state === 'password') {
+      setInputPasswordType('text')
+    } else {
+      setInputPasswordType('password')
     }
   }
 
@@ -382,9 +377,9 @@ const Home: NextPage = () => {
     zip_code: '郵便番号',
     address: '住所',
     email: 'メールアドレス',
-    tel1: '電話番号1',
-    tel2: '電話番号2',
-    tel3: '電話番号3',
+    tel1: '電話番号1 ●●●-◯◯◯◯-◯◯◯◯',
+    tel2: '電話番号2 ◯◯◯-●●●●-◯◯◯◯',
+    tel3: '電話番号3 ◯◯◯-◯◯◯◯-●●●●',
   }
 
   return (
@@ -406,7 +401,7 @@ const Home: NextPage = () => {
                 type="password"
                 name="password"
                 defaultValue=""
-                id="input-password-register1"
+                autoFocus={true}
                 autoComplete="new-password"
                 onChange={(event) => setInputPassword1(event.target.value)}
               />
@@ -417,7 +412,6 @@ const Home: NextPage = () => {
                 type="password"
                 name="password"
                 defaultValue=""
-                id="input-password-register2"
                 autoComplete="new-password"
                 onChange={(event) => setInputPassword2(event.target.value)}
               />
@@ -425,8 +419,7 @@ const Home: NextPage = () => {
                 <CheckBoxPassword
                   type="checkbox"
                   defaultChecked={false}
-                  id="input-checkbox"
-                  onChange={(e) => displayPassword(e.target.checked)}
+                  onChange={() => displayPassword(inputPasswordType)}
                 />
                 パスワードを表示します
               </TextMini>
@@ -443,17 +436,16 @@ const Home: NextPage = () => {
               <TextNormal>パスワード入力</TextNormal>
               <TextPassword num={3}>パスワード</TextPassword>
               <InputPassword
-                type="password"
+                type={inputPasswordType}
                 name="password"
-                id="password"
+                autoFocus={true}
                 onChange={(event) => setPasswordForm(event.target.value)}
               />
               <TextMini>
                 <CheckBoxPassword
                   type="checkbox"
                   defaultChecked={false}
-                  id="input-checkbox"
-                  onChange={(e) => displayPassword(e.target.checked)}
+                  onChange={() => displayPassword(inputPasswordType)}
                 />
                 パスワードを表示します
               </TextMini>
