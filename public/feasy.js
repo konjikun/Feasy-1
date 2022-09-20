@@ -1,7 +1,7 @@
 const feasy = {
   buttonAppend: (buttonPosition) => {
     $(buttonPosition).append(
-      '<input style="width: 10em; height:3em;" type="button" value="feasyから入力" width=500 height=100 id="modalBtn" class="modalBtn">'
+      '<input style="width: 10em; height:3em;" type="button" value="Feasyから入力" width=500 height=100 id="modalBtn" class="modalBtn">'
     )
     //$('#modalBtn').css('background-color', 'red')
 
