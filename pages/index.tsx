@@ -2,6 +2,9 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
+import { modalText } from '../public/datalist'
+import type { Base } from '../public/type'
+
 const Container = styled.div`
   position: fixed;
   width: 100%;
@@ -156,31 +159,6 @@ const InputData = styled.input`
 const InputDataArea = styled.div`
   border-bottom: dashed 1px #3509bb;
 `
-// Yahoo（一旦）
-type Base = {
-  familyname_kanji?: string
-  firstname_kanji?: string
-  familyname_hurigana?: string
-  firstname_hurigana?: string
-  zip_code?: string
-  prefecture?: string
-  municipalities?: string
-  town_name_block_number?: string
-  building_name?: string
-  email?: string
-  tel1?: string
-  tel2?: string
-  tel3?: string
-  school_name?: string
-  school_zip_code?: string
-  school_prefecture?: string
-  school_municipalities?: string
-  school_town_name_block_number?: string
-  school_building_name?: string
-  school_tel1?: string
-  school_tel2?: string
-  school_tel3?: string
-}
 
 const Home: NextPage = () => {
   const localStorageKey = 'Feasy'
@@ -383,32 +361,6 @@ const Home: NextPage = () => {
       setDataList(e.data)
     })
   }, [])
-
-  // Yahoo用テスト
-  const modalText: Base = {
-    familyname_kanji: '姓(漢字)',
-    firstname_kanji: '名(漢字)',
-    familyname_hurigana: '姓(フリガナ)',
-    firstname_hurigana: '名（フリガナ）',
-    zip_code: '郵便番号（自宅）',
-    prefecture: '都道府県（自宅）',
-    municipalities: '市区町村（自宅）',
-    town_name_block_number: '町名・番地（自宅）',
-    building_name: 'ビル・マンション名（自宅）',
-    email: 'メールアドレス',
-    tel1: '電話番号1 ●●●-◯◯◯◯-◯◯◯◯',
-    tel2: '電話番号2 ◯◯◯-●●●●-◯◯◯◯',
-    tel3: '電話番号3 ◯◯◯-◯◯◯◯-●●●●',
-    school_name: '学校名',
-    school_zip_code: '郵便番号（学校）',
-    school_prefecture: '都道府県（学校）',
-    school_municipalities: '市区町村（学校）',
-    school_town_name_block_number: '町名・番地（学校）',
-    school_building_name: 'ビル・マンション名（学校）',
-    school_tel1: '電話番号1（学校） ●●●-◯◯◯◯-◯◯◯◯',
-    school_tel2: '電話番号2（学校） ◯◯◯-●●●●-◯◯◯◯',
-    school_tel3: '電話番号3（学校） ◯◯◯-◯◯◯◯-●●●●',
-  }
 
   return (
     <Container>

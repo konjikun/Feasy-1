@@ -1,0 +1,26 @@
+import type { Base } from './type'
+
+export const modalText: Base = {
+  familyname_kanji: '姓(漢字)',
+  firstname_kanji: '名(漢字)',
+  familyname_hurigana: '姓(フリガナ)',
+  firstname_hurigana: '名（フリガナ）',
+  zip_code: '郵便番号（自宅）',
+  prefecture: '都道府県（自宅）',
+  municipalities: '市区町村（自宅）',
+  town_name_block_number: '町名・番地（自宅）',
+  building_name: 'ビル・マンション名（自宅）',
+  email: 'メールアドレス',
+  tel1: '電話番号1 ●●●-◯◯◯◯-◯◯◯◯',
+  tel2: '電話番号2 ◯◯◯-●●●●-◯◯◯◯',
+  tel3: '電話番号3 ◯◯◯-◯◯◯◯-●●●●',
+  school_name: '学校名',
+  school_zip_code: '郵便番号（学校）',
+  school_prefecture: '都道府県（学校）',
+  school_municipalities: '市区町村（学校）',
+  school_town_name_block_number: '町名・番地（学校）',
+  school_building_name: 'ビル・マンション名（学校）',
+  school_tel1: '電話番号1（学校） ●●●-◯◯◯◯-◯◯◯◯',
+  school_tel2: '電話番号2（学校） ◯◯◯-●●●●-◯◯◯◯',
+  school_tel3: '電話番号3（学校） ◯◯◯-◯◯◯◯-●●●●',
+}
