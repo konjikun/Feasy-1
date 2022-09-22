@@ -266,7 +266,7 @@ const Home: NextPage = () => {
     const encryptedDataBinary = Uint8Array.from(encryptedDataString.split(''), (char) =>
       char.charCodeAt(0)
     )
-    const decryptedDataBinary = await crypto.subtle.decrypt(
+    const decryptedDataBinary: ArrayBufferLike = await crypto.subtle.decrypt(
       { name: 'AES-GCM', iv: iv },
       key,
       encryptedDataBinary
@@ -314,6 +314,7 @@ const Home: NextPage = () => {
     }
   }
 
+  // OKボタンをを押した時
   const post = async () => {
     if (passwordPage) {
       if (!passwordForm) return
@@ -343,6 +344,7 @@ const Home: NextPage = () => {
     }
   }
 
+  // 閉じるボタンをを押した時
   const noPost = () => {
     parent.postMessage(null, href)
   }
