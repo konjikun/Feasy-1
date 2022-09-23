@@ -40,10 +40,12 @@ feasy.on((getdata) => {
       case 'loaded':
         console.log(1)
         feasy.sendData(dataList)
-        $('#modalArea').fadeIn()
+        feasy.fadeInModal()
+        // $('#modalArea').fadeIn()
         break
       case 'storage':
-        $('#modalArea').fadeOut()
+        feasy.fadeOutModal()
+        //$('#modalArea').fadeOut()
         $('#LN').val(getdata.val.familyname_kanji)
         $('#FN').val(getdata.val.firstname_kanji)
         $('#NK1').val(getdata.val.familyname_hurigana)
@@ -66,6 +68,6 @@ feasy.on((getdata) => {
         break
     }
   } else {
-    $('#modalArea').fadeOut()
+    feasy.fadeOutModal()
   }
 })

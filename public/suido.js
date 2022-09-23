@@ -1,5 +1,6 @@
 const a = document.createElement('script')
 a.src = 'http://localhost:3000/feasy.js'
+// a.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
 a.type = 'text/javascript'
 document.head.appendChild(a)
 
@@ -19,10 +20,12 @@ feasy.on((getdata) => {
     switch (getdata.type) {
       case 'loaded':
         feasy.sendData(dataList)
-        $('#modalArea').fadeIn()
+        feasy.fadeInModal()
+        // $('#modalArea').fadeIn()
         break
       case 'storage':
-        $('#modalArea').fadeOut()
+        feasy.fadeOutModal()
+        // $('#modalArea').fadeOut()
         $('#moushikomiShimeiKn').val(
           getdata.val.familyname_hurigana + getdata.val.firstname_hurigana
         )
@@ -35,6 +38,7 @@ feasy.on((getdata) => {
         break
     }
   } else {
-    $('#modalArea').fadeOut()
+    feasy.fadeOutModal()
+    // $('#modalArea').fadeOut()
   }
 })
