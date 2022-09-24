@@ -237,16 +237,16 @@ const Home: NextPage = () => {
     const invocationPart = getInvocationField()
     const iv = Uint8Array.from([...fixedPart, ...new Uint8Array(invocationPart.buffer)])
 
-    let encryptedData = await crypto.subtle.encrypt(
+    const encryptedData: ArrayBuffer = await crypto.subtle.encrypt(
       { name: 'AES-GCM', iv: iv },
       key,
       new TextEncoder().encode(JSON.stringify(input))
     )
-    encryptedData = Array.from(new Uint8Array(encryptedData), (char) =>
+    const encryptedDataString: string = Array.from(new Uint8Array(encryptedData), (char) =>
       String.fromCharCode(char)
     ).join('')
     return JSON.stringify([
-      Buffer.from(encryptedData).toString('base64'),
+      Buffer.from(encryptedDataString).toString('base64'),
       Array.from(invocationPart),
       Array.from(salt),
     ])
