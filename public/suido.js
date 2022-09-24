@@ -5,8 +5,8 @@ a.type = 'text/javascript'
 document.head.appendChild(a)
 
 const dataList = [
-  'familyname_hurigana',
-  'firstname_hurigana',
+  'familyname_hurigana_kata',
+  'firstname_hurigana_kata',
   'familyname_kanji',
   'firstname_kanji',
   'email',
@@ -27,7 +27,7 @@ feasy.on((getdata) => {
         feasy.fadeOutModal()
         // $('#modalArea').fadeOut()
         $('#moushikomiShimeiKn').val(
-          getdata.val.familyname_hurigana + getdata.val.firstname_hurigana
+          getdata.val.familyname_hurigana_kata + getdata.val.firstname_hurigana_kata
         )
         $('#moushikomiShimeiKj').val(getdata.val.familyname_kanji + getdata.val.firstname_kanji)
         $('#moushikomiMail').val(getdata.val.email)

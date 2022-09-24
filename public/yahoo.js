@@ -11,21 +11,25 @@ document.body.appendChild(script2)
 const dataList = [
   'familyname_kanji',
   'firstname_kanji',
-  'familyname_hurigana',
-  'firstname_hurigana',
-  'zip_code',
+  'familyname_hurigana_kata',
+  'firstname_hurigana_kata',
+  'zip_code1',
+  'zip_code2',
   'prefecture',
   'municipalities',
-  'town_name_block_number',
+  'town_name',
+  'block_number_kanji',
   'building_name',
   'tel1',
   'tel2',
   'tel3',
   'school_name',
-  'school_zip_code',
+  'school_zip_code1',
+  'school_zip_code2',
   'school_prefecture',
   'school_municipalities',
-  'school_town_name_block_number',
+  'school_town_name',
+  'school_block_number',
   'school_building_name',
   'school_tel1',
   'school_tel2',
@@ -48,19 +52,19 @@ feasy.on((getdata) => {
         //$('#modalArea').fadeOut()
         $('#LN').val(getdata.val.familyname_kanji)
         $('#FN').val(getdata.val.firstname_kanji)
-        $('#NK1').val(getdata.val.familyname_hurigana)
-        $('#NK2').val(getdata.val.firstname_hurigana)
-        $('#postalCode_a').val(getdata.val.zip_code)
+        $('#NK1').val(getdata.val.familyname_hurigana_kata)
+        $('#NK2').val(getdata.val.firstname_hurigana_kata)
+        $('#postalCode_a').val(getdata.val.zip_code1 + getdata.val.zip_code2)
         $('#address2_a').val(getdata.val.prefecture)
         $('#city_a').val(getdata.val.municipalities)
-        $('#town_a').val(getdata.val.town_name_block_number)
+        $('#town_a').val(getdata.val.town_name + getdata.val.block_number_kanji)
         $('#house_a').val(getdata.val.building_name)
         $('#tel_a').val(getdata.val.tel1 + getdata.val.tel2 + getdata.val.tel3)
         $('#BN').val(getdata.val.school_name)
-        $('#postalCode_b').val(getdata.val.school_zip_code)
+        $('#postalCode_b').val(getdata.val.school_zip_code1 + getdata.val.school_zip_code2)
         $('#address_b').val(getdata.val.school_prefecture)
         $('#city_b').val(getdata.val.school_municipalities)
-        $('#town_b').val(getdata.val.school_town_name_block_number)
+        $('#town_b').val(getdata.val.school_town_name + getdata.val.school_block_number)
         $('#house_b').val(getdata.val.school_building_name)
         $('#tel_b').val(getdata.school_tel1)
         $('#fax_b').val(getdata.school_tel2)

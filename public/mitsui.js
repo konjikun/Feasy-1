@@ -18,7 +18,8 @@ const dataList = [
   'dateofbirth_day',
   'zip_code1',
   'zip_code2',
-  'block_number',
+  'block_number_kanji',
+  'block_number_kata',
   'tel1',
   'tel2',
   'tel3',
@@ -41,7 +42,21 @@ feasy.on((getdata) => {
         $('input[name="name.name1"]').val(data.familyname_kanji)
         $('input[name="name.name2"]').val(data.firstname_kanji)
         $('input[name="nameKana.nameKana1"]').val(data.familyname_hurigana_kata)
-        $('input[name="name.name2"]').val(data.firstname_hurigana_kata)
+        $('input[name="nameKana.nameKana2"]').val(data.firstname_hurigana_kata)
+        $('select[name="birthPc.birthdayNendai"]').val(String(Number(data.dateofbirth_year) + 2012))
+        $('select[name="birthPc.birthday1"]').val(data.dateofbirth_month)
+        $('select[name="birthPc.birthday2"]').val(data.dateofbirth_day)
+        $('input[name="address.zip1"]').val(data.zip_code1)
+        $('input[name="address.zip2"]').val(data.zip_code2)
+        $('input[name="address.address2"]').val(data.block_number_kanji)
+        $('input[name="address.addressKana2"]').val(data.block_number_kata)
+        $('input[name="tel.tel2A"]').val(data.tel1)
+        $('input[name="tel.tel2B"]').val(data.tel2)
+        $('input[name="tel.tel2C"]').val(data.tel3)
+        $('input[name="tel.tel1A"]').val(data.tel_landline1)
+        $('input[name="tel.tel1B"]').val(data.tel_landline2)
+        $('input[name="tel.tel1C"]').val(data.tel_landline3)
+        $('input[name="email.emailAddress1"]').val(data.email)
         break
     }
   } else {

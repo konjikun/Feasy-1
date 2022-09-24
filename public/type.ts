@@ -15,7 +15,8 @@ export type Base = {
   prefecture?: string
   municipalities?: string
   town_name?: string
-  block_number?: string
+  block_number_kanji?: string
+  block_number_kata?: string
   building_name?: string
   email?: string
   tel1?: string
