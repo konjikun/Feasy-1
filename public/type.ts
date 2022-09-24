@@ -7,6 +7,9 @@ export type Base = {
   firstname_hurigana_kata?: string
   familyname_hurigana_roman?: string
   firstname_hurigana_roman?: string
+  dateofbirth_year?: string
+  dateofbirth_month?: string
+  dateofbirth_day?: string
   zip_code1?: string
   zip_code2?: string
   prefecture?: string
