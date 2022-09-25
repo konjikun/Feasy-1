@@ -56,4 +56,5 @@ const feasy = {
     $('#feasyModalArea').fadeIn()
   },
 }
+
 window.feasy = feasy
