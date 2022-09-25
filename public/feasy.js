@@ -7,7 +7,7 @@ const feasy = {
 
     $('.feasyModalBtn').css({
       display: 'inlineblock',
-      'background-color': '#0C88CA',
+      'border-color': '#99ccff #0099cc #0099cc #99ccff',
       color: '#fff',
       width: '160px',
       padding: '0.8em',
@@ -30,7 +30,6 @@ const feasy = {
     //cursor: pointer; text-decoration: none; background:#005691; transform: translate3d(0, 4px, 0); transition: .0s; border-bottom: none;
 
     $('#feasyModalBtn').click(function () {
-      console.log('ボタン押された')
       $(buttonPosition).append(
         '<section style="display: none; position: fixed; top:0;left:0;width:100%;height:100%;"id="feasyModalArea" class="feasyModalArea">\
         <iframe style="position: absolute; top: 50%; left: 50%; transform:translate(-50%,-50%); border:none; width:100%; height:100vh;" height="360" id="feasyIframe" src="https://yoshi-program.github.io/Feasy"></iframe>\
@@ -57,4 +56,5 @@ const feasy = {
     $('#feasyModalArea').fadeIn()
   },
 }
+
 window.feasy = feasy
