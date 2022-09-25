@@ -28,7 +28,6 @@ const feasy = {
       })
     })
     //cursor: pointer; text-decoration: none; background:#005691; transform: translate3d(0, 4px, 0); transition: .0s; border-bottom: none;
-
     $('#feasyModalBtn').click(function () {
       $(buttonPosition).append(
         '<section style="display: none; position: fixed; top:0;left:0;width:100%;height:100%;"id="feasyModalArea" class="feasyModalArea">\
@@ -56,5 +55,4 @@ const feasy = {
     $('#feasyModalArea').fadeIn()
   },
 }
-
 window.feasy = feasy
