@@ -38,7 +38,7 @@ const DataTextArea = styled.div`
   overflow-y: scroll;
 `
 const ButtonArea = styled.div`
-  height: 100px;
+  height: 50px;
   background-color: #a0a0a0;
 `
 const TextNormal = styled.div`
@@ -55,16 +55,17 @@ const TextTitle = styled.div`
   text-align: center;
 `
 const TextPassword = styled.div<{ num: number }>`
-  position: fixed;
+  position: absolute;
   top: ${(p) => (p.num === 1 ? 'default' : p.num === 2 ? '47%' : '37%')};
   left: 27%;
   font-size: 18px;
 `
 const XText = styled.div`
   position: fixed;
-  top: 1.5%;
-  left: 89.5%;
-  margin: 10px;
+  top: 2.6%;
+  left: 90%;
+  gap: 0;
+  margin: 0;
   font-size: 30px;
   color: #3c78d8;
 
@@ -73,32 +74,32 @@ const XText = styled.div`
   }
 `
 const TitleCircle = styled.div`
-  position: fixed;
-  top: 5.7%;
-  left: 91.2%;
+  position: absolute;
+  top: 4.7%;
+  left: 89.9%;
+  gap: 0;
   width: 25px;
   height: 25px;
+  margin: 0%;
   background: #c9daf8;
   border-radius: 50%;
 `
 const NOButton = styled.button`
-  width: 125px;
-  height: 50px;
-  margin: 25px;
-  margin-left: 115px;
-  font-size: 30px;
-  border: solid;
-  border-radius: 7px;
+  width: 100px;
+  height: 40px;
+  margin-left: 25%;
+  font-size: 22px;
 `
 const OKButton = styled.button`
-  width: 125px;
-  height: 50px;
-  margin-left: 50px;
-  font-size: 30px;
+  width: 100px;
+  height: 40px;
+  margin-right: 0%;
+  margin-left: 10%;
+  font-size: 22px;
   color: white;
   background-color: #08f;
   border: none;
-  border-radius: 7px;
+  border-radius: 0;
 
   &:hover {
     cursor: pointer;
