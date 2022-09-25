@@ -1,14 +1,15 @@
 const feasy = {
   buttonAppend: (buttonPosition) => {
     $(buttonPosition).append(
-      '<input style="width: 10em; height:3em;" type="button" value="Feasyから入力" width=500 height=100 id="feasyModalBtn" class="feasyModalBtn">'
+      '<input style="width: 10em; height:3em;" type="button" value="Feasyから入力" "font size="+20" width=500 height=100 id="feasyModalBtn" class="feasyModalBtn">'
     )
     //$('#modalBtn').css('background-color', 'red')
 
     $('.feasyModalBtn').css({
       display: 'inlineblock',
-      'border-color': '#99ccff #0099cc #0099cc #99ccff',
-      color: '#fff',
+      'background-color': '#66CCFF',
+      'font-size': '15px',
+      color: '#000000',
       width: '160px',
       padding: '0.8em',
       'font-weight': 'bold',
@@ -31,7 +32,7 @@ const feasy = {
     $('#feasyModalBtn').click(function () {
       $(buttonPosition).append(
         '<section style="display: none; position: fixed; top:0;left:0;width:100%;height:100%;"id="feasyModalArea" class="feasyModalArea">\
-        <iframe style="position: absolute; top: 50%; left: 50%; transform:translate(-50%,-50%); border:none; width:100%; height:100vh;" height="360" id="feasyIframe" src="https://yoshi-program.github.io/Feasy"></iframe>\
+        <iframe style="position: absolute; top: 50%; left: 50%; transform:translate(-50%,-50%); border:none; width:100%; height:100vh;" height="360" id="feasyIframe" src="http://localhost:3000"></iframe>\
         </section>'
       )
     })
@@ -48,10 +49,7 @@ const feasy = {
     })
   },
   sendData: (demandData) => {
-    $('#feasyIframe')[0].contentWindow.postMessage(
-      demandData,
-      'https://yoshi-program.github.io/Feasy'
-    )
+    $('#feasyIframe')[0].contentWindow.postMessage(demandData, 'http://localhost:3000')
     $('#feasyModalArea').fadeIn()
   },
 }

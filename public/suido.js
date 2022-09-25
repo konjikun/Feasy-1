@@ -1,8 +1,7 @@
 const a = document.createElement('script')
-// a.src = 'http://localhost:3000/feasy.js'
-a.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
 a.type = 'text/javascript'
 document.head.appendChild(a)
+a.src = 'http://localhost:3000/feasy.js'
 
 const dataList = [
   'familyname_hurigana_kata',
