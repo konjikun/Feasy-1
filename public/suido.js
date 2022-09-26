@@ -13,7 +13,7 @@ const dataList = [
   'tel2',
   'tel3',
 ]
-feasy.buttonAppend('#contents')
+feasy.buttonAppend('#vi > p')
 feasy.on((getdata) => {
   if (getdata) {
     switch (getdata.type) {
