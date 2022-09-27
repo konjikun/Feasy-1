@@ -19,12 +19,12 @@ const ModalArea = styled.div`
   padding: 0;
   margin: 0;
   font-size: 30px;
-  background-color: #ececec;
+  background-color: #fff;
   transform: translate(-50%, -50%);
 `
 const LogoArea = styled.img`
   position: fixed;
-  right: 67%;
+  right: 88%;
   width: 65px;
   height: 65px;
 `
@@ -41,6 +41,10 @@ const DataTextArea = styled.div`
   height: 400px;
   overflow-x: hidden;
   overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 const ButtonArea = styled.div`
   height: 50px;

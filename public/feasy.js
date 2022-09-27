@@ -1,15 +1,15 @@
 const feasy = {
   buttonAppend: (buttonPosition) => {
     $(buttonPosition).append(
-      '<input style="width: 25px; height:2em;" type="button" value="Feasyから入力" "font size="+10" width=500 height=100 id="feasyModalBtn" class="feasyModalBtn">'
+      '<input style="width: 25px; height:40px;" type="button" value="Feasyから入力" "font size="+10" width=500 height=100 id="feasyModalBtn" class="feasyModalBtn">'
     )
     //$('#modalBtn').css('background-color', 'red')
 
     $('.feasyModalBtn').css({
       display: 'inlineblock',
-      background: 'linear-gradient(0.15turn,#ddffff, #aaffff,#88ffff)',
-      'font-size': '1.1em',
-      color: '#000000',
+      background: 'linear-gradient(0.15turn, #75a9ff,#4689ff,#005fff)',
+      'font-size': '1.2em',
+      color: '#ddffff',
       'border-color': '#99ccff #0099cc #0099cc #99ccff',
       width: '130px',
       'font-weight': 'bold',

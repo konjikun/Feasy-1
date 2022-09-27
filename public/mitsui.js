@@ -28,7 +28,7 @@ const dataList = [
   'tel_landline3',
   'email',
 ]
-feasy.buttonAppend('#BasicInputForm')
+feasy.buttonAppend('#BasicInputForm > ul.function02.clearfix')
 feasy.on((getdata) => {
   if (getdata) {
     const data = getdata.val
