@@ -17,14 +17,19 @@ const ModalArea = styled.div`
   left: 50%;
   width: 550px;
   padding: 0;
-  margin: 10px;
+  margin: 0;
   font-size: 30px;
   background-color: #ececec;
   transform: translate(-50%, -50%);
 `
+const LogoArea = styled.img`
+  position: fixed;
+  right: 67%;
+  width: 65px;
+  height: 65px;
+`
 const TitleArea = styled.div`
-  padding: 14px;
-  margin-top: 0;
+  font-weight: bold;
   background-color: #6d9eeb;
 `
 const MainArea = styled.div`
@@ -42,17 +47,20 @@ const ButtonArea = styled.div`
   background-color: #a0a0a0;
 `
 const TextNormal = styled.div`
-  margin: 10px;
+  margin: 3px;
   font-size: 25px;
 `
 const TextMini = styled.div`
   font-size: 15px;
 `
 const TextTitle = styled.div`
+  padding-top: 10px;
+  padding-bottom: 10px;
   font-size: 30px;
   font-weight: bold;
   color: white;
   text-align: center;
+  background-color: #6d9eeb;
 `
 const TextPassword = styled.div<{ num: number }>`
   position: absolute;
@@ -62,7 +70,7 @@ const TextPassword = styled.div<{ num: number }>`
 `
 const XText = styled.div`
   position: fixed;
-  top: 2.6%;
+  top: 2.65%;
   left: 90%;
   gap: 0;
   margin: 0;
@@ -369,6 +377,7 @@ const Home: NextPage = () => {
     <Container>
       <ModalArea>
         <TitleArea>
+          <LogoArea src="Feasy_logo_only.png" />
           <TextTitle>Feasyで入力</TextTitle>
           <TitleCircle>
             <XText onClick={noPost}>×</XText>

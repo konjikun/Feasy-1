@@ -7,7 +7,7 @@ const feasy = {
 
     $('.feasyModalBtn').css({
       display: 'inlineblock',
-      background: 'linear-gradient(0.15turn,#aaffff, #88ffff)',
+      background: 'linear-gradient(0.15turn,#ddffff, #aaffff,#88ffff)',
       'font-size': '1.1em',
       color: '#000000',
       'border-color': '#99ccff #0099cc #0099cc #99ccff',

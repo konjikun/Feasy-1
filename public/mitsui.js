@@ -5,7 +5,7 @@ document.body.appendChild(script1)
 
 const script2 = document.createElement('script')
 script2.type = 'text/javascript'
-script2.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
+script2.src = 'http://localhost:3000/feasy.js'
 document.body.appendChild(script2)
 
 const dataList = [
