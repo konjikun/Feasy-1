@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+
 import { modalText } from '../public/datalist'
 import type { Base } from '../public/type'
 
