@@ -322,6 +322,7 @@ const Home: NextPage = () => {
       if (!passwordForm) return
       const decrypted = await getData(passwordForm)
       if (decrypted) {
+        console.log('decrypted: ', decrypted)
         setMainData(JSON.parse(decrypted))
         setPassword(passwordForm)
         setPasswordPage(false)

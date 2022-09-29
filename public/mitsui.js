@@ -8,26 +8,35 @@ script2.type = 'text/javascript'
 script2.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
 document.body.appendChild(script2)
 
-const noChangeDataList = { tax_2022: '100' }
+const noChangeDataList = { tax_2022: '100', income: '5000' }
 const noChange = []
-let d = ''
+let d = {}
 
-for (let i = 0; i < Object.keys(noChangeDataList); i++) {
+for (let i = 0; i < Object.keys(noChangeDataList).length; i++) {
   const keyData = `data=${Object.values(noChangeDataList)[i]}`
-  d = ''
-  $.post('http://localhost:3000/api/sign/', keyData)
+  d = {}
+  const g = $.post('http://localhost:3000/api/sign/', keyData)
     //サーバーからの返信を受け取る
     .done(function (data) {
       console.log('data: ', data)
-      d = data
+      d = Object.assign(d, data)
+      //d = data
+      noChange.push({
+        [Object.keys(noChangeDataList)[i]]: JSON.stringify(
+          Object.assign(d, { data: Object.values(noChangeDataList)[i] })
+        ),
+      })
     })
-  noChange.push = {
-    [Object.keys(noChangeDataList)[i]]: JSON.stringify({
-      signature: d,
-      data: Object.values(noChangeDataList)[i],
-    }),
-  }
+  //d = Object.assign(d, g)
+  console.log('g: ', g)
+  console.log('d: ', d)
+  // noChange.push({
+  //   [Object.keys(noChangeDataList)[i]]: JSON.stringify(
+  //     Object.assign(d, { data: Object.values(noChangeDataList)[i] })
+  //   ),
+  // })
 }
+console.log('noChange: ', noChange)
 
 // const keyData = 'data="100"'
 
@@ -63,7 +72,6 @@ const dataList = [
   'email',
 ]
 const a = { list: dataList, sig: noChange }
-console.log('noChange: ', noChange)
 feasy.buttonAppend('#BasicInputForm')
 feasy.on((getdata) => {
   if (getdata) {
