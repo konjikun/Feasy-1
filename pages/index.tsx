@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { modalText } from '../public/datalist'
+import { keys } from '../public/publickeys'
 import type { Base } from '../public/type'
 
 const Container = styled.div`
@@ -170,6 +171,7 @@ const Home: NextPage = () => {
   // 親から受け取る情報
   const [href, setHref] = useState('')
   const [dataList, setDataList] = useState<(keyof Base)[]>([])
+  const [noChangeDataList, setNoChangeDataList] = useState([])
 
   // LocalStorageを復号したデータ、追加するデータ
   const [mainData, setMainData] = useState<Base>({})
@@ -324,6 +326,36 @@ const Home: NextPage = () => {
         setPassword(passwordForm)
         setPasswordPage(false)
       }
+      // noChangeDataの検証
+      if (noChangeDataList) {
+        const publicKey = keys[noChangeDataList[0][Object.keys(noChangeDataList[0])[0]]]
+        const key = await crypto.subtle.importKey(
+          'spki',
+          Buffer.from(publicKey, 'base64'),
+          { name: 'RSASSA-PKCS1-v1_5', hash: { name: 'SHA-256' } },
+          false,
+          ['verify']
+        )
+
+        const func = noChangeDataList.map((d: { [key: string]: string }) => {
+          const jsonData = d[Object.keys(d)[0]]
+          const data = JSON.parse(jsonData)
+          const verify = crypto.subtle.verify(
+            { name: 'RSASSA-PKCS1-v1_5' },
+            key,
+            Buffer.from(data.signature, 'base64'),
+            Buffer.from(data.data, 'utf8')
+          )
+          return verify
+        })
+
+        const verifyList = await Promise.all(func)
+        noChangeDataList.map((d: { [key: string]: string }, index) => {
+          if (verifyList[index]) {
+            setAddData({ ...addData, [Object.keys(d)[0]]: `${d[Object.keys(d)[0]]}` })
+          }
+        })
+      }
       return
     } else {
       setMainData({ ...mainData, ...addData })
@@ -360,7 +392,9 @@ const Home: NextPage = () => {
     }
     window.addEventListener('message', (e) => {
       setHref(e.origin)
-      setDataList(e.data)
+      // setDataList(e.data)
+      setDataList(e.data.list)
+      setNoChangeDataList(e.data.sig)
     })
   }, [])
 

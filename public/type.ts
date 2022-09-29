@@ -1,3 +1,18 @@
+// type Additional = {
+//   taxOffice?: TaxOffice
+// }
+
+// type TaxOffice = {
+//   tax_2022?: {
+//     signature: string
+//     data: string
+//   }
+//   income_2022?: {
+//     signature: string
+//     data: string
+//   }
+// }
+
 export type Base = {
   familyname_kanji?: string
   firstname_kanji?: string
@@ -36,4 +51,22 @@ export type Base = {
   school_tel1?: string
   school_tel2?: string
   school_tel3?: string
+  tax_2022?: string
+  income_2022?: string
+  // signature?: string
+  // data?: string
+  //Additonal?: Additional[]
 }
+
+// サイト側は
+// const noChangeDataList = [
+//   { Additonal: { taxOffice: { tax_2022: { signature: 'aaa', data: '100' } } } },
+//   { Additonal: { taxOffice: { income_2022: { signature: 'iii', data: '1000' } } } },
+// ]
+//サイト側（提供）
+const noChangeDataList = [
+  { tax_2022: JSON.stringify({ signature: 'aaa', data: '100' }) },
+  //{ Additonal: { taxOffice: { income_2022: { signature: 'iii', data: '1000' } } } },
+]
+//サイト側（もらう）リストに入れるだけ
+const dataList = ['tax_2022']

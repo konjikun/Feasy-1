@@ -1,0 +1,6 @@
+import type { Base } from './type'
+
+export const keys: Base = {
+  tax_2022:
+    'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0bK5XWXpYWF8SKChoC2gEz2o8/I1OEsP1sHG6twEEifGw4u7vEZsFJCYn9b6WdYmzpdp1Yk4OGTEV6Pz226lsQdaDvQkzeb10fAesmEff6C4Z/f3GKuaGUwVWAhv23Kfq5e4BjaVNM1eYnbjXf8ANHcrWCLnizTkjVLU+fnP7jyGPrNRRrHhz4o/obX5NgAl4qr4W+rzio9CpQEf/DkNZ6pmQQQm4Gax2IXk0czYDPALbXn1uYgoRFxggFwUQXCuRrTA/QiF8h1ug72fbU/cZp8rHRgezC6e9eniUfGT2QdX9qeEbLxeL0Iy1NwpGU+upWtfpKwnjlVZczlemsEK5wIDAQAB',
+}

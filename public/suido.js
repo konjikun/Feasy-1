@@ -1,8 +1,13 @@
 const a = document.createElement('script')
-// a.src = 'http://localhost:3000/feasy.js'
-a.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
+a.src = 'http://localhost:3000/feasy.js'
+// a.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
 a.type = 'text/javascript'
 document.head.appendChild(a)
+
+const script1 = document.createElement('script')
+script1.type = 'text/javascript'
+script1.src = '//code.jquery.com/jquery-1.12.0.min.js'
+document.body.appendChild(script1)
 
 const dataList = [
   'familyname_hurigana_kata',
@@ -14,6 +19,16 @@ const dataList = [
   'tel2',
   'tel3',
 ]
+
+//const keyData = 'data={"aaa": "アイウエオ", "iii": "123"}'
+const keyData = 'data="100"'
+
+$.post('http://localhost:3000/api/hello/', keyData)
+  //サーバーからの返信を受け取る
+  .done(function (data) {
+    console.log('data: ', data)
+  })
+
 feasy.buttonAppend('#contents')
 feasy.on((getdata) => {
   if (getdata) {
