@@ -346,6 +346,7 @@ const Home: NextPage = () => {
             Buffer.from(data.signature, 'base64'),
             Buffer.from(data.data, 'utf8')
           )
+          console.log('verify: ', verify)
           return verify
         })
 
@@ -353,6 +354,7 @@ const Home: NextPage = () => {
         noChangeDataList.map((d: { [key: string]: string }, index) => {
           if (verifyList[index]) {
             setAddData({ ...addData, [Object.keys(d)[0]]: `${d[Object.keys(d)[0]]}` })
+            console.log('signatureとdata: ', `${d[Object.keys(d)[0]]}`)
           }
         })
       }

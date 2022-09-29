@@ -8,13 +8,39 @@ script2.type = 'text/javascript'
 script2.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
 document.body.appendChild(script2)
 
-const keyData = 'data="100"'
+const noChangeDataList = { tax_2022: '100' }
+const noChange = []
+let d = ''
 
-$.post('http://localhost:3000/api/sign/', keyData)
-  //サーバーからの返信を受け取る
-  .done(function (data) {
-    console.log('data: ', data)
-  })
+for (let i = 0; i < Object.keys(noChangeDataList); i++) {
+  const keyData = `data=${Object.values(noChangeDataList)[i]}`
+  d = ''
+  $.post('http://localhost:3000/api/sign/', keyData)
+    //サーバーからの返信を受け取る
+    .done(function (data) {
+      console.log('data: ', data)
+      d = data
+    })
+  noChange.push = {
+    [Object.keys(noChangeDataList)[i]]: JSON.stringify({
+      signature: d,
+      data: Object.values(noChangeDataList)[i],
+    }),
+  }
+}
+
+// const keyData = 'data="100"'
+
+// $.post('http://localhost:3000/api/sign/', keyData)
+//   //サーバーからの返信を受け取る
+//   .done(function (data) {
+//     console.log('data: ', data)
+//   })
+
+// const noChangeDataList = [
+//   { tax_2022: JSON.stringify({ signature: 'aaa', data: '100' }) },
+//   //{ Additonal: { taxOffice: { income_2022: { signature: 'iii', data: '1000' } } } },
+// ]
 
 const dataList = [
   'familyname_kanji',
@@ -36,7 +62,8 @@ const dataList = [
   'tel_landline3',
   'email',
 ]
-const a = { list: dataList, sig: null }
+const a = { list: dataList, sig: noChange }
+console.log('noChange: ', noChange)
 feasy.buttonAppend('#BasicInputForm')
 feasy.on((getdata) => {
   if (getdata) {
