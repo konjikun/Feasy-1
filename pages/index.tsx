@@ -357,9 +357,10 @@ const Home: NextPage = () => {
 
         const verifyList = await Promise.all(func)
         console.log('verifyList: ', verifyList)
+        // const beforeAddData = {}
         noChangeDataList.map((d: { [key: string]: string }, index) => {
           if (verifyList[index]) {
-            setAddData({ ...addData, d })
+            setAddData({ ...addData, ...d })
             console.log('signatureとdata: ', `${d[Object.keys(d)[0]]}`)
             console.log('d: ', d)
           }
@@ -380,6 +381,7 @@ const Home: NextPage = () => {
 
       const encrypted = await encrypt(JSON.stringify(newDecrypted), password)
       localStorage.setItem(localStorageKey, encrypted)
+      console.log('encrypted: ', encrypted)
 
       parent.postMessage({ type: 'storage', val: postData }, href)
     }
