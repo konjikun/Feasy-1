@@ -18,38 +18,14 @@ for (let i = 0; i < Object.keys(noChangeDataList).length; i++) {
   $.post('http://localhost:3000/api/sign/', keyData)
     //サーバーからの返信を受け取る
     .done(function (data) {
-      // console.log('data: ', data)
       d = Object.assign(d, data)
-      //d = data
       noChange.push({
         [Object.keys(noChangeDataList)[i]]: JSON.stringify(
           Object.assign(d, { data: Object.values(noChangeDataList)[i] })
         ),
       })
     })
-  //d = Object.assign(d, g)
-  // console.log('g: ', g)
-  // console.log('d: ', d)
-  // noChange.push({
-  //   [Object.keys(noChangeDataList)[i]]: JSON.stringify(
-  //     Object.assign(d, { data: Object.values(noChangeDataList)[i] })
-  //   ),
-  // })
 }
-console.log('noChange: ', noChange)
-
-// const keyData = 'data="100"'
-
-// $.post('http://localhost:3000/api/sign/', keyData)
-//   //サーバーからの返信を受け取る
-//   .done(function (data) {
-//     console.log('data: ', data)
-//   })
-
-// const noChangeDataList = [
-//   { tax_2022: JSON.stringify({ signature: 'aaa', data: '100' }) },
-//   //{ Additonal: { taxOffice: { income_2022: { signature: 'iii', data: '1000' } } } },
-// ]
 
 const dataList = [
   'familyname_kanji',
@@ -71,7 +47,7 @@ const dataList = [
   'tel_landline3',
   'email',
 ]
-const a = { list: dataList, sig: noChange }
+const sendData = { list: dataList, sig: noChange }
 feasy.buttonAppend('#BasicInputForm')
 feasy.on((getdata) => {
   if (getdata) {
@@ -79,7 +55,7 @@ feasy.on((getdata) => {
     switch (getdata.type) {
       case 'loaded':
         // feasy.sendData(dataList)
-        feasy.sendData(a)
+        feasy.sendData(sendData)
         feasy.fadeInModal()
         break
       case 'storage':

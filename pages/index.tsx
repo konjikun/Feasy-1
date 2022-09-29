@@ -322,11 +322,6 @@ const Home: NextPage = () => {
       if (!passwordForm) return
       const decrypted = await getData(passwordForm)
       if (decrypted) {
-        const ddd = JSON.parse(decrypted)
-        console.log('decrypted: ', decrypted)
-        console.log('ddd: ', ddd)
-        console.log("ddd['income_2022']: ", ddd['income_2022'])
-        console.log("ddd['tax_2022']: ", ddd['tax_2022'])
         setMainData(JSON.parse(decrypted))
         setPassword(passwordForm)
         setPasswordPage(false)
@@ -335,7 +330,6 @@ const Home: NextPage = () => {
       if (noChangeDataList) {
         const k = Object.keys(noChangeDataList[0])[0]
         const publicKey = keys[k]
-        console.log('publicKey: ', publicKey)
         const key = await crypto.subtle.importKey(
           'spki',
           Buffer.from(publicKey, 'base64'),
@@ -346,30 +340,22 @@ const Home: NextPage = () => {
 
         const func = noChangeDataList.map((d: { [key: string]: string }) => {
           const jsonData = d[Object.keys(d)[0]]
-          console.log('jsonData: ', jsonData)
           const data = JSON.parse(jsonData)
-          console.log('data: ', data)
           const verify = crypto.subtle.verify(
             { name: 'RSASSA-PKCS1-v1_5' },
             key,
             Buffer.from(data.signature, 'base64'),
             Buffer.from(data.data, 'utf8')
           )
-          console.log('verify: ', verify)
           return verify
         })
 
         const verifyList = await Promise.all(func)
-        console.log('verifyList: ', verifyList)
-        // const beforeAddData = {}
-        noChangeDataList.map((d: { [key: string]: string }, index) => {
+        noChangeDataList.map((add: { [key: string]: string }, index) => {
           if (verifyList[index]) {
-            setAddData((a) => ({ ...a, ...d }))
-            console.log('signatureとdata: ', `${d[Object.keys(d)[0]]}`)
-            console.log('d: ', d)
+            setAddData((data) => ({ ...data, ...add }))
           }
         })
-        // setAddData({ ...addData, ...beforeAddData })
       }
       return
     } else {
@@ -383,7 +369,6 @@ const Home: NextPage = () => {
           postData[d] = getObject[`${d}`]
         }
       })
-      console.log('newDecrypted: ', newDecrypted)
 
       const encrypted = await encrypt(JSON.stringify(newDecrypted), password)
       localStorage.setItem(localStorageKey, encrypted)
@@ -433,7 +418,6 @@ const Home: NextPage = () => {
                 type={inputPasswordType}
                 name="password"
                 defaultValue=""
-                autoFocus={true}
                 autoComplete="new-password"
                 onChange={(event) => setInputPassword1(event.target.value)}
               />
@@ -470,7 +454,6 @@ const Home: NextPage = () => {
               <InputPassword
                 type={inputPasswordType}
                 name="password"
-                autoFocus={true}
                 onChange={(event) => setPasswordForm(event.target.value)}
               />
               <TextMini>
