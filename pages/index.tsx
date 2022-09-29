@@ -322,9 +322,11 @@ const Home: NextPage = () => {
       if (!passwordForm) return
       const decrypted = await getData(passwordForm)
       if (decrypted) {
+        const ddd = JSON.parse(decrypted)
         console.log('decrypted: ', decrypted)
-        console.log(decrypted['income_2022'])
-        console.log(decrypted['tax_2022'])
+        console.log('ddd: ', ddd)
+        console.log("ddd['income_2022']: ", ddd['income_2022'])
+        console.log("ddd['tax_2022']: ", ddd['tax_2022'])
         setMainData(JSON.parse(decrypted))
         setPassword(passwordForm)
         setPasswordPage(false)
