@@ -329,9 +329,6 @@ const Home: NextPage = () => {
       }
       // noChangeDataの検証
       if (noChangeDataList) {
-        console.log('noChangeDataList[0]: ', noChangeDataList[0])
-        console.log('Object.keys(noChangeDataList[0])[0]: ', Object.keys(noChangeDataList[0])[0])
-        console.log('Object.keys(noChangeDataList[0]): ', Object.keys(noChangeDataList[0]))
         const k = Object.keys(noChangeDataList[0])[0]
         const publicKey = keys[k]
         console.log('publicKey: ', publicKey)
@@ -362,8 +359,9 @@ const Home: NextPage = () => {
         console.log('verifyList: ', verifyList)
         noChangeDataList.map((d: { [key: string]: string }, index) => {
           if (verifyList[index]) {
-            setAddData({ ...addData, [Object.keys(d)[0]]: `${d[Object.keys(d)[0]]}` })
+            setAddData({ ...addData, d })
             console.log('signatureとdata: ', `${d[Object.keys(d)[0]]}`)
+            console.log('d: ', d)
           }
         })
       }

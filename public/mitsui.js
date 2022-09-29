@@ -8,7 +8,7 @@ script2.type = 'text/javascript'
 script2.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
 document.body.appendChild(script2)
 
-const noChangeDataList = { tax_2022: '100', income: '5000' }
+const noChangeDataList = { tax_2022: '100', income_2022: '5000' }
 const noChange = []
 let d = {}
 
