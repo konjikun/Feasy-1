@@ -329,6 +329,9 @@ const Home: NextPage = () => {
       }
       // noChangeDataの検証
       if (noChangeDataList) {
+        console.log('noChangeDataList[0]: ', noChangeDataList[0])
+        console.log('Object.keys(noChangeDataList[0])[0]: ', Object.keys(noChangeDataList[0])[0])
+        console.log('Object.keys(noChangeDataList[0]): ', Object.keys(noChangeDataList[0]))
         const publicKey: string = keys[noChangeDataList[0][Object.keys(noChangeDataList[0])[0]]]
         console.log('publicKey: ', publicKey)
         const key = await crypto.subtle.importKey(

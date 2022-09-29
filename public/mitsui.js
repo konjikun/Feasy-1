@@ -15,7 +15,7 @@ let d = {}
 for (let i = 0; i < Object.keys(noChangeDataList).length; i++) {
   const keyData = `data=${Object.values(noChangeDataList)[i]}`
   d = {}
-  const g = $.post('http://localhost:3000/api/sign/', keyData)
+  $.post('http://localhost:3000/api/sign/', keyData)
     //サーバーからの返信を受け取る
     .done(function (data) {
       // console.log('data: ', data)
