@@ -18,7 +18,7 @@ for (let i = 0; i < Object.keys(noChangeDataList).length; i++) {
   const g = $.post('http://localhost:3000/api/sign/', keyData)
     //サーバーからの返信を受け取る
     .done(function (data) {
-      console.log('data: ', data)
+      // console.log('data: ', data)
       d = Object.assign(d, data)
       //d = data
       noChange.push({
@@ -28,8 +28,8 @@ for (let i = 0; i < Object.keys(noChangeDataList).length; i++) {
       })
     })
   //d = Object.assign(d, g)
-  console.log('g: ', g)
-  console.log('d: ', d)
+  // console.log('g: ', g)
+  // console.log('d: ', d)
   // noChange.push({
   //   [Object.keys(noChangeDataList)[i]]: JSON.stringify(
   //     Object.assign(d, { data: Object.values(noChangeDataList)[i] })

@@ -329,7 +329,8 @@ const Home: NextPage = () => {
       }
       // noChangeDataの検証
       if (noChangeDataList) {
-        const publicKey = keys[noChangeDataList[0][Object.keys(noChangeDataList[0])[0]]]
+        const publicKey: string = keys[noChangeDataList[0][Object.keys(noChangeDataList[0])[0]]]
+        console.log('publicKey: ', publicKey)
         const key = await crypto.subtle.importKey(
           'spki',
           Buffer.from(publicKey, 'base64'),
@@ -340,7 +341,9 @@ const Home: NextPage = () => {
 
         const func = noChangeDataList.map((d: { [key: string]: string }) => {
           const jsonData = d[Object.keys(d)[0]]
+          console.log('jsonData: ', jsonData)
           const data = JSON.parse(jsonData)
+          console.log('data: ', data)
           const verify = crypto.subtle.verify(
             { name: 'RSASSA-PKCS1-v1_5' },
             key,
@@ -352,6 +355,7 @@ const Home: NextPage = () => {
         })
 
         const verifyList = await Promise.all(func)
+        console.log('verifyList: ', verifyList)
         noChangeDataList.map((d: { [key: string]: string }, index) => {
           if (verifyList[index]) {
             setAddData({ ...addData, [Object.keys(d)[0]]: `${d[Object.keys(d)[0]]}` })
