@@ -360,11 +360,12 @@ const Home: NextPage = () => {
         // const beforeAddData = {}
         noChangeDataList.map((d: { [key: string]: string }, index) => {
           if (verifyList[index]) {
-            setAddData({ ...addData, ...d })
+            setAddData((a) => ({ ...a, ...d }))
             console.log('signatureとdata: ', `${d[Object.keys(d)[0]]}`)
             console.log('d: ', d)
           }
         })
+        // setAddData({ ...addData, ...beforeAddData })
       }
       return
     } else {
@@ -378,10 +379,10 @@ const Home: NextPage = () => {
           postData[d] = getObject[`${d}`]
         }
       })
+      console.log('newDecrypted: ', newDecrypted)
 
       const encrypted = await encrypt(JSON.stringify(newDecrypted), password)
       localStorage.setItem(localStorageKey, encrypted)
-      console.log('encrypted: ', encrypted)
 
       parent.postMessage({ type: 'storage', val: postData }, href)
     }
