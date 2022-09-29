@@ -1,7 +1,10 @@
+import { Checkbox } from '@mui/material'
+import Box from '@mui/material/Box'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import TextField from '@mui/material/TextField'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-
 import { modalText } from '../public/datalist'
 import type { Base } from '../public/type'
 
@@ -11,32 +14,26 @@ const Container = styled.div`
   height: 100%;
   background-color: #000000a8;
 `
+
 const ModalArea = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   width: 550px;
+  height: 400px;
   padding: 0;
   margin: 0;
   font-size: 30px;
-  background-color: #fff;
+  background-color: #ffffffea;
   transform: translate(-50%, -50%);
 `
 const LogoArea = styled.img`
   position: fixed;
-  right: 88%;
-  width: 65px;
-  height: 65px;
+  right: 68%;
+  width: 50px;
+  height: 50px;
 `
-const TitleArea = styled.div`
-  font-weight: bold;
-  background-color: #6d9eeb;
-`
-const MainArea = styled.div`
-  height: 300px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-`
+
 const DataTextArea = styled.div`
   height: 400px;
   overflow-x: hidden;
@@ -57,15 +54,7 @@ const TextNormal = styled.div`
 const TextMini = styled.div`
   font-size: 15px;
 `
-const TextTitle = styled.div`
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
-  text-align: center;
-  background-color: #6d9eeb;
-`
+
 const TextPassword = styled.div<{ num: number }>`
   position: absolute;
   top: ${(p) => (p.num === 1 ? 'default' : p.num === 2 ? '47%' : '37%')};
@@ -105,8 +94,26 @@ const NOButton = styled.button`
 const OKButton = styled.button`
   width: 100px;
   height: 40px;
+  margin-top: 5%;
   margin-right: 0%;
-  margin-left: 10%;
+  margin-left: 40%;
+  font-size: 22px;
+  color: white;
+  background-color: #08f;
+  border: none;
+  border-radius: 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #00a6ff;
+  }
+`
+const OKButton2 = styled.button`
+  width: 100px;
+  height: 40px;
+  margin-top: 6%;
+  margin-right: 0%;
+  margin-left: 40%;
   font-size: 22px;
   color: white;
   background-color: #08f;
@@ -134,10 +141,11 @@ const InputPasswordRegister = styled(InputPassword)<{ num: number }>`
   margin: auto;
 `
 const CheckBoxPassword = styled.input`
-  margin-top: 150px;
-  margin-right: 10px;
-  margin-left: 175px;
-  transform: scale(1.2);
+  margin-top: 10px;
+  margin-right: 37.5%;
+  margin-left: 0;
+  font-size: 50px;
+  transform: scale(1.2); ;
 `
 const Li = styled.li<{ num: number }>`
   margin: 10px;
@@ -380,76 +388,92 @@ const Home: NextPage = () => {
   return (
     <Container>
       <ModalArea>
-        <TitleArea>
-          <LogoArea src="Feasy_logo_only.png" />
-          <TextTitle>Feasyで入力</TextTitle>
-          <TitleCircle>
-            <XText onClick={noPost}>×</XText>
-          </TitleCircle>
-        </TitleArea>
+        <TitleCircle>
+          <XText onClick={noPost}>×</XText>
+        </TitleCircle>
+
         {firstTime ? (
           <>
-            <MainArea>
+            <Box
+              sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <LogoArea src="Feasy_logo_only.png" />
+
               <TextNormal>パスワード登録</TextNormal>
-              <TextPassword num={1}>パスワード</TextPassword>
-              <InputPasswordRegister
-                num={1}
-                type={inputPasswordType}
+              <TextPassword num={1} />
+              <TextField
+                margin="normal"
+                required
                 name="password"
-                defaultValue=""
-                autoFocus={true}
+                label="Password"
+                id="password"
+                type={inputPasswordType}
+                defaultValue="パスワード"
                 autoComplete="new-password"
                 onChange={(event) => setInputPassword1(event.target.value)}
               />
-              <br />
-              <TextPassword num={2}>確認</TextPassword>
-              <InputPasswordRegister
-                num={2}
-                type={inputPasswordType}
+              <TextPassword num={2} />
+              <TextField
+                margin="normal"
+                required
                 name="password"
+                label="Password"
+                id="password"
+                type={inputPasswordType}
                 defaultValue=""
                 autoComplete="new-password"
                 onChange={(event) => setInputPassword2(event.target.value)}
               />
-              <TextMini>
-                <CheckBoxPassword
-                  type="checkbox"
-                  defaultChecked={false}
-                  onChange={() => displayPassword(inputPasswordType)}
-                />
-                パスワードを表示します
-              </TextMini>
-            </MainArea>
+              <FormControlLabel
+                control={<Checkbox />}
+                sx={{ marginRight: 4 }}
+                label="パスワードを表示する"
+                defaultChecked={false}
+                onChange={() => displayPassword(inputPasswordType)}
+              />
+            </Box>
 
-            <ButtonArea>
-              <NOButton onClick={noPost}>閉じる</NOButton>
-              <OKButton onClick={register}>登録</OKButton>
-            </ButtonArea>
+            <OKButton onClick={register}>登録</OKButton>
           </>
         ) : passwordPage ? (
           <>
-            <MainArea>
+            <Box
+              sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <LogoArea src="Feasy_logo_only.png" />
               <TextNormal>パスワード入力</TextNormal>
-              <TextPassword num={3}>パスワード</TextPassword>
-              <InputPassword
+              <TextPassword num={3} />
+              <TextField
+                margin="normal"
+                required
                 type={inputPasswordType}
                 name="password"
+                label="Password"
                 autoFocus={true}
+                autoComplete="current-password"
                 onChange={(event) => setPasswordForm(event.target.value)}
+                sx={{ marginTop: 7 }}
               />
-              <TextMini>
-                <CheckBoxPassword
-                  type="checkbox"
-                  defaultChecked={false}
-                  onChange={() => displayPassword(inputPasswordType)}
-                />
-                パスワードを表示します
-              </TextMini>
-            </MainArea>
-            <ButtonArea>
-              <NOButton onClick={noPost}>閉じる</NOButton>
-              <OKButton onClick={post}>OK</OKButton>
-            </ButtonArea>
+              <FormControlLabel
+                control={<Checkbox />}
+                sx={{ marginTop: 0, marginRight: 8 }}
+                label="パスワードを表示"
+                defaultChecked={false}
+                onChange={() => displayPassword(inputPasswordType)}
+              />
+            </Box>
+
+            <OKButton2 onClick={post}>OK</OKButton2>
           </>
         ) : (
           <DataTextArea>

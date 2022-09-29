@@ -8,14 +8,15 @@ const feasy = {
     $('.feasyModalBtn').css({
       display: 'inlineblock',
       background: 'linear-gradient(0.15turn, #75a9ff,#4689ff,#005fff)',
-      'font-size': '1.2em',
+      width: '150px',
+      'font-size': '20px',
       color: '#ddffff',
+      padding: '0,30',
       'border-color': '#99ccff #0099cc #0099cc #99ccff',
-      width: '130px',
+      height: '48px',
       'font-weight': 'bold',
       'border-radius': '4px',
-      'box-shadow':
-        '0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2)',
+      //'box-shadow': '0 3px 5px 2px rgb(255 105 135 / 30%)',
       '-webkit-tap-highlight-color': 'transparent',
       transition: '.3s ease-out',
     })

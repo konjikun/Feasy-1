@@ -20,11 +20,9 @@ feasy.on((getdata) => {
       case 'loaded':
         feasy.sendData(dataList)
         feasy.fadeInModal()
-        // $('#modalArea').fadeIn()
         break
       case 'storage':
         feasy.fadeOutModal()
-        // $('#modalArea').fadeOut()
         $('#moushikomiShimeiKn').val(
           getdata.val.familyname_hurigana_kata + getdata.val.firstname_hurigana_kata
         )
