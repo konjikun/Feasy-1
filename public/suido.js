@@ -20,10 +20,9 @@ const dataList = [
   'tel3',
 ]
 
-//const keyData = 'data={"aaa": "アイウエオ", "iii": "123"}'
 const keyData = 'data="100"'
 
-$.post('http://localhost:3000/api/hello/', keyData)
+$.post('http://localhost:3000/api/sign/', keyData)
   //サーバーからの返信を受け取る
   .done(function (data) {
     console.log('data: ', data)

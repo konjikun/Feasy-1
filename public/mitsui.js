@@ -8,6 +8,14 @@ script2.type = 'text/javascript'
 script2.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
 document.body.appendChild(script2)
 
+const keyData = 'data="100"'
+
+$.post('http://localhost:3000/api/sign/', keyData)
+  //サーバーからの返信を受け取る
+  .done(function (data) {
+    console.log('data: ', data)
+  })
+
 const dataList = [
   'familyname_kanji',
   'firstname_kanji',
@@ -28,13 +36,15 @@ const dataList = [
   'tel_landline3',
   'email',
 ]
+const a = { list: dataList, sig: null }
 feasy.buttonAppend('#BasicInputForm')
 feasy.on((getdata) => {
   if (getdata) {
     const data = getdata.val
     switch (getdata.type) {
       case 'loaded':
-        feasy.sendData(dataList)
+        // feasy.sendData(dataList)
+        feasy.sendData(a)
         feasy.fadeInModal()
         break
       case 'storage':
