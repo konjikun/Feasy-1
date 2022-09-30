@@ -50,7 +50,10 @@ const feasy = {
     })
   },
   sendData: (demandData) => {
-    $('#feasyIframe')[0].contentWindow.postMessage(demandData, 'http://localhost:3000')
+    $('#feasyIframe')[0].contentWindow.postMessage(
+      demandData,
+      'https://yoshi-program.github.io/Feasy/feasy.js'
+    )
     $('#feasyModalArea').fadeIn()
   },
 }

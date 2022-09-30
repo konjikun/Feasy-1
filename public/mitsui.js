@@ -13,7 +13,7 @@ const noChangeDataList = { tax_2022: '100', income_2022: '5000' }
 const noChange = []
 let d = {}
 
-for (let i = 0; i < Object.keys(noChangeDataList).length; i++) {
+/*for (let i = 0; i < Object.keys(noChangeDataList).length; i++) {
   const keyData = `data=${Object.values(noChangeDataList)[i]}`
   d = {}
   $.post('http://localhost:3000/api/sign/', keyData)
@@ -26,7 +26,7 @@ for (let i = 0; i < Object.keys(noChangeDataList).length; i++) {
         ),
       })
     })
-}
+}*/
 
 const dataList = [
   'familyname_kanji',
@@ -58,7 +58,7 @@ feasy.on((getdata) => {
     switch (getdata.type) {
       case 'loaded':
         // feasy.sendData(dataList)
-        feasy.sendData(sendData)
+        feasy.sendData(dataList)
         feasy.fadeInModal()
         break
       case 'storage':
