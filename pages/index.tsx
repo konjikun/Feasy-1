@@ -151,6 +151,7 @@ const Home: NextPage = () => {
   // 親から受け取る情報
   const [href, setHref] = useState('')
   const [dataList, setDataList] = useState<(keyof Base)[]>([])
+  const [noChangeDataList, setNoChangeDataList] = useState([])
 
   // LocalStorageを復号したデータ、追加するデータ
   const [mainData, setMainData] = useState<Base>({})

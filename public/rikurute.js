@@ -15,13 +15,13 @@ const noChange = []
 
 const sendData = { list: dataList, sig: noChange }
 
-feasy.buttonAppend('.dmfraZ')
+feasy.buttonAppend('.ehypAI')
 feasy.on((getdata) => {
   if (getdata) {
     const data = getdata.val
     switch (getdata.type) {
       case 'loaded':
-        feasy.sendData(sendData)
+        feasy.sendData(dataList)
         feasy.fadeInModal()
         break
       case 'storage':
