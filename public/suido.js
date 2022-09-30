@@ -1,7 +1,14 @@
 const a = document.createElement('script')
+// a.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
+
 a.type = 'text/javascript'
 document.head.appendChild(a)
 a.src = 'http://localhost:3000/feasy.js'
+
+const script1 = document.createElement('script')
+script1.type = 'text/javascript'
+script1.src = '//code.jquery.com/jquery-1.12.0.min.js'
+document.body.appendChild(script1)
 
 const dataList = [
   'familyname_hurigana_kata',
@@ -13,7 +20,17 @@ const dataList = [
   'tel2',
   'tel3',
 ]
-feasy.buttonAppend('#vi > p')
+
+
+const keyData = 'data="100"'
+
+$.post('http://localhost:3000/api/sign/', keyData)
+  //サーバーからの返信を受け取る
+  .done(function (data) {
+    console.log('data: ', data)
+  })
+
+feasy.buttonAppend('#contents')
 feasy.on((getdata) => {
   if (getdata) {
     switch (getdata.type) {
