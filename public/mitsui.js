@@ -5,7 +5,8 @@ document.body.appendChild(script1)
 
 const script2 = document.createElement('script')
 script2.type = 'text/javascript'
-script2.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
+script2.src = 'http://localhost:3000'
+//script2.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
 document.body.appendChild(script2)
 
 const noChangeDataList = { tax_2022: '100', income_2022: '5000' }
@@ -47,8 +48,10 @@ const dataList = [
   'tel_landline3',
   'email',
 ]
+
 const sendData = { list: dataList, sig: noChange }
 feasy.buttonAppend('#BasicInputForm')
+
 feasy.on((getdata) => {
   if (getdata) {
     const data = getdata.val
