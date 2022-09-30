@@ -362,7 +362,7 @@ const Home: NextPage = () => {
                 alignItems: 'center',
               }}
             >
-              <LogoArea src="Feasy_logo_only.png" />
+              <LogoArea src="Feasy_logo_only.jpg" />
 
               <TextNormal>パスワード登録</TextNormal>
               <TextPassword num={1} />
@@ -410,7 +410,7 @@ const Home: NextPage = () => {
                 alignItems: 'center',
               }}
             >
-              <LogoArea src="Feasy_logo_only.png" />
+              <LogoArea src="Feasy_logo_only.jpg" />
               <TextNormal>パスワード入力</TextNormal>
               <TextPassword num={3} />
               <TextField

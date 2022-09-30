@@ -36,4 +36,6 @@ export type Base = {
   school_tel1?: string
   school_tel2?: string
   school_tel3?: string
+  tax_2022?: string
+  income_2022?: string
 }
