@@ -326,7 +326,7 @@ const Home: NextPage = () => {
         setPassword(passwordForm)
         setPasswordPage(false)
       }
-      // noChangeDataの検証
+      // データの検証
       if (noChangeDataList) {
         const k = Object.keys(noChangeDataList[0])[0]
         const publicKey = keys[k]
@@ -338,9 +338,9 @@ const Home: NextPage = () => {
           ['verify']
         )
 
-        const func = noChangeDataList.map((d: { [key: string]: string }) => {
-          const jsonData = d[Object.keys(d)[0]]
-          const data = JSON.parse(jsonData)
+        const verifyData = noChangeDataList.map((d: { [key: string]: string }) => {
+          const jsonSignatureAndData = d[Object.keys(d)[0]]
+          const data = JSON.parse(jsonSignatureAndData)
           const verify = crypto.subtle.verify(
             { name: 'RSASSA-PKCS1-v1_5' },
             key,
@@ -350,7 +350,7 @@ const Home: NextPage = () => {
           return verify
         })
 
-        const verifyList = await Promise.all(func)
+        const verifyList = await Promise.all(verifyData)
         noChangeDataList.map((add: { [key: string]: string }, index) => {
           if (verifyList[index]) {
             setAddData((data) => ({ ...data, ...add }))
