@@ -36,6 +36,17 @@ export type Base = {
   school_tel1?: string
   school_tel2?: string
   school_tel3?: string
-  tax_2022?: string
+  tax_2022_sign?: string
+  income_2022_sign?: string
   income_2022?: string
+  before_one_zip_code1?: string
+  before_one_zip_code2?: string
+  before_one_prefecture?: string
+  before_one_municipalities?: string
+  before_one_town_name?: string
+  before_one_block_number_kanji?: string
+  car_egistration_plate_number?: string
+  car_egistration_plate_bunrui?: string
+  car_egistration_plate_kana?: string
+  car_egistration_plate_ichiren?: string
 }
