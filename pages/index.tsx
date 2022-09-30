@@ -1,4 +1,10 @@
-import { Checkbox } from '@mui/material'
+import Paper from '@material-ui/core/Paper'
+import Table from '@material-ui/core/Table'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import { Checkbox, TableBody } from '@mui/material'
 import Box from '@mui/material/Box'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import TextField from '@mui/material/TextField'
@@ -24,7 +30,7 @@ const ModalArea = styled.div`
   padding: 0;
   margin: 0;
   font-size: 30px;
-  background-color: #ffffffea;
+  background-color: #fff;
   transform: translate(-50%, -50%);
 `
 const LogoArea = styled.img`
@@ -51,9 +57,6 @@ const TextNormal = styled.div`
   margin: 3px;
   font-size: 25px;
 `
-const TextMini = styled.div`
-  font-size: 15px;
-`
 
 const TextPassword = styled.div<{ num: number }>`
   position: absolute;
@@ -68,7 +71,7 @@ const XText = styled.div`
   gap: 0;
   margin: 0;
   font-size: 30px;
-  color: #3c78d8;
+  color: #868686;
 
   &:hover {
     cursor: default;
@@ -82,15 +85,10 @@ const TitleCircle = styled.div`
   width: 25px;
   height: 25px;
   margin: 0%;
-  background: #c9daf8;
+  background: #e7e7e7;
   border-radius: 50%;
 `
-const NOButton = styled.button`
-  width: 100px;
-  height: 40px;
-  margin-left: 25%;
-  font-size: 22px;
-`
+
 const OKButton = styled.button`
   width: 100px;
   height: 40px;
@@ -125,60 +123,22 @@ const OKButton2 = styled.button`
     background-color: #00a6ff;
   }
 `
-const InputPassword = styled.input`
-  position: fixed;
-  top: 45%;
-  left: 50%;
-  width: 250px;
+const OKButton3 = styled.button`
+  width: 100px;
   height: 40px;
-  margin: 10px;
-  margin-left: 1px;
-  font-size: 20px;
-  transform: translate(-50%, -50%);
-`
-const InputPasswordRegister = styled(InputPassword)<{ num: number }>`
-  top: ${(p) => (p.num === 1 ? '38%' : '57%')};
-  margin: auto;
-`
-const CheckBoxPassword = styled.input`
-  margin-top: 10px;
-  margin-right: 37.5%;
-  margin-left: 0;
-  font-size: 50px;
-  transform: scale(1.2); ;
-`
-const Li = styled.li<{ num: number }>`
-  margin: 10px;
-  margin-bottom: ${(p) => (p.num === 1 ? '10px' : '0')};
-  font-size: 19px;
-  line-height: 1.5;
-  list-style-type: none !important;
-  border-bottom: ${(p) => (p.num === 1 ? 'dashed 1px #3509bb' : 'none')};
+  margin-top: 1%;
+  margin-right: 0%;
+  margin-left: 40%;
+  font-size: 22px;
+  color: white;
+  background-color: #08f;
+  border: none;
+  border-radius: 0;
 
-  ::before {
-    position: relative;
-    top: -3px;
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-right: 8px;
-    content: '';
-    background-color: #6d9eeb;
-    border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+    background-color: #00a6ff;
   }
-`
-const InputData = styled.input`
-  width: 250px;
-  height: 35px;
-  margin: 10px;
-  margin-top: 0;
-  margin-left: 30px;
-  font-size: 19px;
-  border: solid;
-  border-radius: 5px;
-`
-const InputDataArea = styled.div`
-  border-bottom: dashed 1px #3509bb;
 `
 
 const Home: NextPage = () => {
@@ -477,27 +437,52 @@ const Home: NextPage = () => {
           </>
         ) : (
           <DataTextArea>
-            <TextNormal>以下の項目を許可しますか？</TextNormal>
-            <TextMini>（初めての項目は記入してください）</TextMini>
-            {dataList.map((d) =>
-              modalText[d] && mainData[d] ? (
-                <Li key={d} num={1}>
-                  {modalText[d]}
-                </Li>
-              ) : (
-                <InputDataArea>
-                  <Li num={2}>{modalText[d]}</Li>
-                  <InputData
-                    onChange={(event) => {
-                      setAddData({ ...addData, [d]: `${event.target.value}` })
-                    }}
-                  />
-                </InputDataArea>
-              )
-            )}
+            <TableContainer component={Paper}>
+              <Table aria-label="c">
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ fontSize: '0.6em', fontWeight: 'bold' }}>
+                      以下の項目を許可しますか？
+                    </TableCell>
+                    <TableCell style={{ fontSize: '0.6em', fontWeight: 'bold' }}>
+                      入力内容
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {dataList.map((d) =>
+                    modalText[d] && mainData[d] ? (
+                      <TableRow key={d}>
+                        <TableCell style={{ backgroundColor: '#e8eaf6' }}>{modalText[d]}</TableCell>
+                        <TableCell>{mainData[d]}</TableCell>
+                      </TableRow>
+                    ) : (
+                      <TableRow key={d}>
+                        <TableCell style={{ backgroundColor: '#e8eaf6' }}>{modalText[d]}</TableCell>
+                        <TableCell>
+                          {' '}
+                          <TextField
+                            color="primary"
+                            margin="normal"
+                            required
+                            name="password"
+                            label={modalText[d]}
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            onChange={(event) => {
+                              setAddData({ ...addData, [d]: `${event.target.value}` })
+                            }}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    )
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
             <ButtonArea>
-              <NOButton onClick={noPost}>閉じる</NOButton>
-              <OKButton onClick={post}>OK</OKButton>
+              <OKButton3 onClick={post}>OK</OKButton3>
             </ButtonArea>
           </DataTextArea>
         )}
