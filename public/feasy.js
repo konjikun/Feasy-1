@@ -40,8 +40,8 @@ const feasy = {
     //cursor: pointer; text-decoration: none; background:#005691; transform: translate3d(0, 4px, 0); transition: .0s; border-bottom: none;
     $('#feasyModalBtn').click(function () {
       $(buttonPosition).append(
-        '<section style="display: none; position: fixed; top:0;left:0;width:100%;height:100%;z-index: 2147483647;"id="feasyModalArea" class="feasyModalArea">\
-        <iframe style="position: absolute; top: 50%; left: 50%; transform:translate(-50%,-50%); border:none; width:100%; height:100vh;" height="360" id="feasyIframe" src="http://localhost:3000"></iframe>\
+        '<section style="display: none; position: fixed; top:0;left:0;width:100%;height:100%;"id="feasyModalArea" class="feasyModalArea">\
+        <iframe style="position: absolute; top: 50%; left: 50%; transform:translate(-50%,-50%); border:none; width:100%; height:100vh;" height="360" id="feasyIframe" src="https://yoshi-program.github.io/Feasy/feasy.js"></iframe>\
         </section>'
       )
     })
@@ -58,7 +58,10 @@ const feasy = {
     })
   },
   sendData: (demandData) => {
-    $('#feasyIframe')[0].contentWindow.postMessage(demandData, 'http://localhost:3000')
+    $('#feasyIframe')[0].contentWindow.postMessage(
+      demandData,
+      'https://yoshi-program.github.io/Feasy/feasy.js'
+    )
     $('#feasyModalArea').fadeIn()
   },
 }
