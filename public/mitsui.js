@@ -5,27 +5,28 @@ document.body.appendChild(script1)
 
 const script2 = document.createElement('script')
 script2.type = 'text/javascript'
-script2.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
+script2.src = 'http://localhost:3000/feasy.js'
+//script2.src = 'https://yoshi-program.github.io/Feasy/feasy.js'
 document.body.appendChild(script2)
 
-const noChangeDataList = { tax_2022: '100', income_2022: '5000' }
-const noChange = []
-let d = {}
+// const noChangeDataList = { tax_2022: '100', income_2022: '5000' }
+// const noChange = []
+// let d = {}
 
-for (let i = 0; i < Object.keys(noChangeDataList).length; i++) {
-  const keyData = `data=${Object.values(noChangeDataList)[i]}`
-  d = {}
-  $.post('http://localhost:3000/api/sign/', keyData)
-    //サーバーからの返信を受け取る
-    .done(function (data) {
-      d = Object.assign(d, data)
-      noChange.push({
-        [Object.keys(noChangeDataList)[i]]: JSON.stringify(
-          Object.assign(d, { data: Object.values(noChangeDataList)[i] })
-        ),
-      })
-    })
-}
+// for (let i = 0; i < Object.keys(noChangeDataList).length; i++) {
+//   const keyData = `data=${Object.values(noChangeDataList)[i]}`
+//   d = {}
+//   $.post('http://localhost:3000/api/sign/', keyData)
+//     //サーバーからの返信を受け取る
+//     .done(function (data) {
+//       d = Object.assign(d, data)
+//       noChange.push({
+//         [Object.keys(noChangeDataList)[i]]: JSON.stringify(
+//           Object.assign(d, { data: Object.values(noChangeDataList)[i] })
+//         ),
+//       })
+//     })
+// }
 
 const dataList = [
   'familyname_kanji',
@@ -47,15 +48,51 @@ const dataList = [
   'tel_landline3',
   'email',
 ]
-const sendData = { list: dataList, sig: noChange }
-feasy.buttonAppend('#BasicInputForm')
+// 山田
+// 太郎
+// ヤマダ
+// タロウ
+// 2000
+// 12
+// 24
+// 102
+// 8282
+// １ー３　東京ガーデンテラス紀尾井町　紀尾井タワー
+// １ー３　トウキョウガーデンテラスキオイチョウ　キヨイタワー
+// 090
+// 1111
+// 2222
+// 03
+// 1111
+// 2222
+// 1111@iniad.org
+
+品川
+399
+と
+1111
+東京都
+千代田区
+紀尾井町
+
+１ー３
+東京都
+港区
+赤坂
+９ー７ー１
+ミッドタウン・タワー
+
+
+// const sendData = { list: dataList, sig: null }
+// feasy.buttonAppend('#BasicInputForm')
+feasy.buttonAppend('#BasicInputForm > table')
 feasy.on((getdata) => {
   if (getdata) {
     const data = getdata.val
     switch (getdata.type) {
       case 'loaded':
         // feasy.sendData(dataList)
-        feasy.sendData(sendData)
+        feasy.sendData(dataList)
         feasy.fadeInModal()
         break
       case 'storage':

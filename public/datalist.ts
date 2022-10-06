@@ -41,4 +41,15 @@ export const modalText: Base = {
   tax_2022_sign: '納税額(2022)',
   income_2022_sign: '収入(2022)',
   income_2022: '収入(2022)',
+
+  before_one_zip_code1: '郵便番号前3桁（一つ前の住所）●●●-◯◯◯◯',
+  before_one_zip_code2: '郵便番号後4桁（一つ前の住所）◯◯◯-●●●●',
+  before_one_prefecture: '都道府県（一つ前の住所）',
+  before_one_municipalities: '市区町村（一つ前の住所）',
+  before_one_town_name: '町名（一つ前の住所）',
+  before_one_block_number_kanji: '番地（一つ前の住所）',
+  car_egistration_plate_number: 'ナンバープレート(ナンバー)',
+  car_egistration_plate_bunrui: 'ナンバープレート(車種分類)',
+  car_egistration_plate_kana: 'ナンバープレート(かな)',
+  car_egistration_plate_ichiren: 'ナンバープレート(一連番号)',
 }

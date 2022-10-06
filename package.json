@@ -14,11 +14,18 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@material-ui/core": "^4.12.4",
+    "@mui/material": "^5.10.7",
+    "@mui/styled-engine-sc": "^5.10.6",
+    "add": "^2.0.6",
     "cors": "^2.8.5",
     "next": "^12.2.5",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.6",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@stylelint/postcss-css-in-js": "^0.38.0",

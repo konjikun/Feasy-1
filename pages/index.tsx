@@ -1,9 +1,17 @@
+import Paper from '@material-ui/core/Paper'
+import Table from '@material-ui/core/Table'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import { Checkbox, TableBody } from '@mui/material'
+import Box from '@mui/material/Box'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import TextField from '@mui/material/TextField'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-
 import { modalText } from '../public/datalist'
-import { keys } from '../public/publickeys'
 import type { Base } from '../public/type'
 
 const Container = styled.div`
@@ -12,153 +20,126 @@ const Container = styled.div`
   height: 100%;
   background-color: #000000a8;
 `
+
 const ModalArea = styled.div`
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 35%;
   width: 550px;
+  height: 400px;
   padding: 0;
-  margin: 10px;
+  margin: 0;
   font-size: 30px;
-  background-color: #ececec;
+  background-color: #fff;
   transform: translate(-50%, -50%);
 `
-const TitleArea = styled.div`
-  padding: 14px;
-  margin-top: 0;
-  background-color: #6d9eeb;
+const LogoArea = styled.img`
+  position: fixed;
+  right: 68%;
+  width: 50px;
+  height: 50px;
 `
-const MainArea = styled.div`
-  height: 300px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-`
+
 const DataTextArea = styled.div`
   height: 400px;
   overflow-x: hidden;
   overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 const ButtonArea = styled.div`
-  height: 100px;
+  height: 50px;
   background-color: #a0a0a0;
 `
+
 const TextNormal = styled.div`
-  margin: 10px;
+  margin: 3px;
   font-size: 25px;
 `
-const TextMini = styled.div`
-  font-size: 15px;
-`
-const TextTitle = styled.div`
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
-  text-align: center;
-`
+
 const TextPassword = styled.div<{ num: number }>`
-  position: fixed;
+  position: absolute;
   top: ${(p) => (p.num === 1 ? 'default' : p.num === 2 ? '47%' : '37%')};
   left: 27%;
   font-size: 18px;
 `
 const XText = styled.div`
   position: fixed;
-  top: 1%;
-  left: 89.8%;
-  margin: 10px;
+  top: 1.5%;
+  left: 90.4%;
+  gap: 0;
+  margin: 0;
   font-size: 30px;
-  color: #3c78d8;
+  color: #868686;
 
   &:hover {
     cursor: default;
   }
 `
 const TitleCircle = styled.div`
-  position: fixed;
-  top: 5.7%;
-  left: 91.2%;
+  position: absolute;
+  top: 4.7%;
+  left: 89.9%;
+  gap: 0;
   width: 25px;
   height: 25px;
-  background: #c9daf8;
+  margin: 0%;
+  background: #e7e7e7;
   border-radius: 50%;
 `
-const NOButton = styled.button`
-  width: 125px;
-  height: 50px;
-  margin: 25px;
-  margin-left: 115px;
-  font-size: 30px;
-  border: solid;
-  border-radius: 7px;
-`
+
 const OKButton = styled.button`
-  width: 125px;
-  height: 50px;
-  margin-left: 50px;
-  font-size: 30px;
+  width: 100px;
+  height: 40px;
+  margin-top: 5%;
+  margin-right: 0%;
+  margin-left: 40%;
+  font-size: 22px;
   color: white;
   background-color: #08f;
   border: none;
-  border-radius: 7px;
+  border-radius: 0;
 
   &:hover {
     cursor: pointer;
     background-color: #00a6ff;
   }
 `
-const InputPassword = styled.input`
-  position: fixed;
-  top: 45%;
-  left: 50%;
-  width: 250px;
+const OKButton2 = styled.button`
+  width: 100px;
   height: 40px;
-  margin: 10px;
-  margin-left: 1px;
-  font-size: 20px;
-  transform: translate(-50%, -50%);
-`
-const InputPasswordRegister = styled(InputPassword)<{ num: number }>`
-  top: ${(p) => (p.num === 1 ? '38%' : '57%')};
-  margin: auto;
-`
-const CheckBoxPassword = styled.input`
-  margin-top: 150px;
-  margin-right: 10px;
-  margin-left: 175px;
-  transform: scale(1.2);
-`
-const Li = styled.li<{ num: number }>`
-  margin: 10px;
-  margin-bottom: ${(p) => (p.num === 1 ? '10px' : '0')};
-  font-size: 19px;
-  line-height: 1.5;
-  list-style-type: none !important;
-  border-bottom: ${(p) => (p.num === 1 ? 'dashed 1px #3509bb' : 'none')};
+  margin-top: 6%;
+  margin-right: 0%;
+  margin-left: 40%;
+  font-size: 22px;
+  color: white;
+  background-color: #08f;
+  border: none;
+  border-radius: 0;
 
-  ::before {
-    position: relative;
-    top: -3px;
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-right: 8px;
-    content: '';
-    background-color: #6d9eeb;
-    border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+    background-color: #00a6ff;
   }
 `
-const InputData = styled.input`
-  width: 250px;
-  height: 35px;
-  margin: 10px;
-  margin-top: 0;
-  margin-left: 30px;
-  font-size: 19px;
-  border: solid;
-  border-radius: 5px;
-`
-const InputDataArea = styled.div`
-  border-bottom: dashed 1px #3509bb;
+const OKButton3 = styled.button`
+  width: 100px;
+  height: 40px;
+  margin-top: 1%;
+  margin-right: 0%;
+  margin-left: 40%;
+  font-size: 22px;
+  color: white;
+  background-color: #08f;
+  border: none;
+  border-radius: 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #00a6ff;
+  }
 `
 
 const Home: NextPage = () => {
@@ -327,36 +308,36 @@ const Home: NextPage = () => {
         setPasswordPage(false)
       }
       // データの検証
-      if (noChangeDataList) {
-        const k = Object.keys(noChangeDataList[0])[0]
-        const publicKey = keys[k]
-        const key = await crypto.subtle.importKey(
-          'spki',
-          Buffer.from(publicKey, 'base64'),
-          { name: 'RSASSA-PKCS1-v1_5', hash: { name: 'SHA-256' } },
-          false,
-          ['verify']
-        )
+      // if (noChangeDataList) {
+      //   const k = Object.keys(noChangeDataList[0])[0]
+      //   const publicKey = keys[k]
+      //   const key = await crypto.subtle.importKey(
+      //     'spki',
+      //     Buffer.from(publicKey, 'base64'),
+      //     { name: 'RSASSA-PKCS1-v1_5', hash: { name: 'SHA-256' } },
+      //     false,
+      //     ['verify']
+      //   )
 
-        const verifyData = noChangeDataList.map((d: { [key: string]: string }) => {
-          const jsonSignatureAndData = d[Object.keys(d)[0]]
-          const data = JSON.parse(jsonSignatureAndData)
-          const verify = crypto.subtle.verify(
-            { name: 'RSASSA-PKCS1-v1_5' },
-            key,
-            Buffer.from(data.signature, 'base64'),
-            Buffer.from(data.data, 'utf8')
-          )
-          return verify
-        })
+      //   const verifyData = noChangeDataList.map((d: { [key: string]: string }) => {
+      //     const jsonSignatureAndData = d[Object.keys(d)[0]]
+      //     const data = JSON.parse(jsonSignatureAndData)
+      //     const verify = crypto.subtle.verify(
+      //       { name: 'RSASSA-PKCS1-v1_5' },
+      //       key,
+      //       Buffer.from(data.signature, 'base64'),
+      //       Buffer.from(data.data, 'utf8')
+      //     )
+      //     return verify
+      //   })
 
-        const verifyList = await Promise.all(verifyData)
-        noChangeDataList.map((add: { [key: string]: string }, index) => {
-          if (verifyList[index]) {
-            setAddData((data) => ({ ...data, ...add }))
-          }
-        })
-      }
+      //   const verifyList = await Promise.all(verifyData)
+      //   noChangeDataList.map((add: { [key: string]: string }, index) => {
+      //     if (verifyList[index]) {
+      //       setAddData((data) => ({ ...data, ...add }))
+      //     }
+      //   })
+      // }
       return
     } else {
       setMainData({ ...mainData, ...addData })
@@ -393,106 +374,148 @@ const Home: NextPage = () => {
     }
     window.addEventListener('message', (e) => {
       setHref(e.origin)
-      // setDataList(e.data)
-      setDataList(e.data.list)
-      setNoChangeDataList(e.data.sig)
+      setDataList(e.data)
     })
   }, [])
 
   return (
     <Container>
       <ModalArea>
-        <TitleArea>
-          <TextTitle>Feasyで入力</TextTitle>
-          <TitleCircle>
-            <XText onClick={noPost}>×</XText>
-          </TitleCircle>
-        </TitleArea>
+        <TitleCircle>
+          <XText onClick={noPost}>×</XText>
+        </TitleCircle>
+
         {firstTime ? (
           <>
-            <MainArea>
+            <Box
+              sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <LogoArea src="Feasy_logo_only.jpg" />
+
               <TextNormal>パスワード登録</TextNormal>
-              <TextPassword num={1}>パスワード</TextPassword>
-              <InputPasswordRegister
-                num={1}
-                type={inputPasswordType}
+              <TextPassword num={1} />
+              <TextField
+                margin="normal"
+                required
                 name="password"
-                defaultValue=""
+                label="Password"
+                id="password"
+                type={inputPasswordType}
+                defaultValue="パスワード"
                 autoComplete="new-password"
                 onChange={(event) => setInputPassword1(event.target.value)}
               />
-              <br />
-              <TextPassword num={2}>確認</TextPassword>
-              <InputPasswordRegister
-                num={2}
-                type={inputPasswordType}
+              <TextPassword num={2} />
+              <TextField
+                margin="normal"
+                required
                 name="password"
+                label="Password"
+                id="password"
+                type={inputPasswordType}
                 defaultValue=""
                 autoComplete="new-password"
                 onChange={(event) => setInputPassword2(event.target.value)}
               />
-              <TextMini>
-                <CheckBoxPassword
-                  type="checkbox"
-                  defaultChecked={false}
-                  onChange={() => displayPassword(inputPasswordType)}
-                />
-                パスワードを表示します
-              </TextMini>
-            </MainArea>
+              <FormControlLabel
+                control={<Checkbox />}
+                sx={{ marginRight: 4 }}
+                label="パスワードを表示する"
+                defaultChecked={false}
+                onChange={() => displayPassword(inputPasswordType)}
+              />
+            </Box>
 
-            <ButtonArea>
-              <NOButton onClick={noPost}>閉じる</NOButton>
-              <OKButton onClick={register}>登録</OKButton>
-            </ButtonArea>
+            <OKButton onClick={register}>登録</OKButton>
           </>
         ) : passwordPage ? (
           <>
-            <MainArea>
+            <Box
+              sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <LogoArea src="Feasy_logo_only.jpg" />
               <TextNormal>パスワード入力</TextNormal>
-              <TextPassword num={3}>パスワード</TextPassword>
-              <InputPassword
+              <TextPassword num={3} />
+              <TextField
+                margin="normal"
+                required
                 type={inputPasswordType}
                 name="password"
+                label="Password"
+                autoFocus={true}
+                autoComplete="current-password"
                 onChange={(event) => setPasswordForm(event.target.value)}
+                sx={{ marginTop: 7 }}
               />
-              <TextMini>
-                <CheckBoxPassword
-                  type="checkbox"
-                  defaultChecked={false}
-                  onChange={() => displayPassword(inputPasswordType)}
-                />
-                パスワードを表示します
-              </TextMini>
-            </MainArea>
-            <ButtonArea>
-              <NOButton onClick={noPost}>閉じる</NOButton>
-              <OKButton onClick={post}>OK</OKButton>
-            </ButtonArea>
+              <FormControlLabel
+                control={<Checkbox />}
+                sx={{ marginTop: 0, marginRight: 8 }}
+                label="パスワードを表示"
+                defaultChecked={false}
+                onChange={() => displayPassword(inputPasswordType)}
+              />
+            </Box>
+
+            <OKButton2 onClick={post}>OK</OKButton2>
           </>
         ) : (
           <DataTextArea>
-            <TextNormal>以下の項目を許可しますか？</TextNormal>
-            <TextMini>（初めての項目は記入してください）</TextMini>
-            {dataList.map((d) =>
-              modalText[d] && mainData[d] ? (
-                <Li key={d} num={1}>
-                  {modalText[d]}
-                </Li>
-              ) : (
-                <InputDataArea>
-                  <Li num={2}>{modalText[d]}</Li>
-                  <InputData
-                    onChange={(event) => {
-                      setAddData({ ...addData, [d]: `${event.target.value}` })
-                    }}
-                  />
-                </InputDataArea>
-              )
-            )}
+            <TableContainer component={Paper}>
+              <Table aria-label="c">
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ fontSize: '0.6em', fontWeight: 'bold' }}>
+                      以下の項目を許可しますか？
+                    </TableCell>
+                    <TableCell style={{ fontSize: '0.6em', fontWeight: 'bold' }}>
+                      入力内容
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {dataList.map((d) =>
+                    modalText[d] && mainData[d] ? (
+                      <TableRow key={d}>
+                        <TableCell style={{ backgroundColor: '#e8eaf6' }}>{modalText[d]}</TableCell>
+                        <TableCell>{mainData[d]}</TableCell>
+                      </TableRow>
+                    ) : (
+                      <TableRow key={d}>
+                        <TableCell style={{ backgroundColor: '#e8eaf6' }}>{modalText[d]}</TableCell>
+                        <TableCell>
+                          {' '}
+                          <TextField
+                            color="primary"
+                            margin="normal"
+                            required
+                            name="password"
+                            label={modalText[d]}
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            onChange={(event) => {
+                              setAddData({ ...addData, [d]: `${event.target.value}` })
+                            }}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    )
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
             <ButtonArea>
-              <NOButton onClick={noPost}>閉じる</NOButton>
-              <OKButton onClick={post}>OK</OKButton>
+              <OKButton3 onClick={post}>OK</OKButton3>
             </ButtonArea>
           </DataTextArea>
         )}
