@@ -39,6 +39,9 @@ const dataList = [
   // 'school_tel3',
 ]
 
+const noChange = []
+const sendData = { list: dataList, sig: noChange }
+
 feasy.buttonAppend('#yjMain > div > form > div > div > div.buttonMedium')
 feasy.on((getdata) => {
   if (getdata) {
@@ -46,7 +49,8 @@ feasy.on((getdata) => {
     switch (getdata.type) {
       case 'loaded':
         console.log(1)
-        feasy.sendData(dataList)
+        feasy.sendData(sendData)
+        // feasy.sendData(dataList)
         feasy.fadeInModal()
         break
       case 'storage':

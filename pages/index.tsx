@@ -12,6 +12,7 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { modalText } from '../public/datalist'
+import { keys } from '../public/publickeys'
 import type { Base } from '../public/type'
 
 const Container = styled.div`
@@ -308,36 +309,36 @@ const Home: NextPage = () => {
         setPasswordPage(false)
       }
       // データの検証
-      // if (noChangeDataList) {
-      //   const k = Object.keys(noChangeDataList[0])[0]
-      //   const publicKey = keys[k]
-      //   const key = await crypto.subtle.importKey(
-      //     'spki',
-      //     Buffer.from(publicKey, 'base64'),
-      //     { name: 'RSASSA-PKCS1-v1_5', hash: { name: 'SHA-256' } },
-      //     false,
-      //     ['verify']
-      //   )
+      if (noChangeDataList.length) {
+        const k = Object.keys(noChangeDataList[0])[0]
+        const publicKey = keys[k]
+        const key = await crypto.subtle.importKey(
+          'spki',
+          Buffer.from(publicKey, 'base64'),
+          { name: 'RSASSA-PKCS1-v1_5', hash: { name: 'SHA-256' } },
+          false,
+          ['verify']
+        )
 
-      //   const verifyData = noChangeDataList.map((d: { [key: string]: string }) => {
-      //     const jsonSignatureAndData = d[Object.keys(d)[0]]
-      //     const data = JSON.parse(jsonSignatureAndData)
-      //     const verify = crypto.subtle.verify(
-      //       { name: 'RSASSA-PKCS1-v1_5' },
-      //       key,
-      //       Buffer.from(data.signature, 'base64'),
-      //       Buffer.from(data.data, 'utf8')
-      //     )
-      //     return verify
-      //   })
+        const verifyData = noChangeDataList.map((d: { [key: string]: string }) => {
+          const jsonSignatureAndData = d[Object.keys(d)[0]]
+          const data = JSON.parse(jsonSignatureAndData)
+          const verify = crypto.subtle.verify(
+            { name: 'RSASSA-PKCS1-v1_5' },
+            key,
+            Buffer.from(data.signature, 'base64'),
+            Buffer.from(data.data, 'utf8')
+          )
+          return verify
+        })
 
-      //   const verifyList = await Promise.all(verifyData)
-      //   noChangeDataList.map((add: { [key: string]: string }, index) => {
-      //     if (verifyList[index]) {
-      //       setAddData((data) => ({ ...data, ...add }))
-      //     }
-      //   })
-      // }
+        const verifyList = await Promise.all(verifyData)
+        noChangeDataList.map((add: { [key: string]: string }, index) => {
+          if (verifyList[index]) {
+            setAddData((data) => ({ ...data, ...add }))
+          }
+        })
+      }
       return
     } else {
       setMainData({ ...mainData, ...addData })
@@ -374,7 +375,9 @@ const Home: NextPage = () => {
     }
     window.addEventListener('message', (e) => {
       setHref(e.origin)
-      setDataList(e.data)
+      // setDataList(e.data)
+      setDataList(e.data.list)
+      setNoChangeDataList(e.data.sig)
     })
   }, [])
 
