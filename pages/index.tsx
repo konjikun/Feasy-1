@@ -144,6 +144,7 @@ const OKButton3 = styled.button`
 `
 
 const Home: NextPage = () => {
+  // LocalStorageで共通で使うkey
   const localStorageKey = 'Feasy'
 
   // ページ遷移のstate
@@ -155,20 +156,20 @@ const Home: NextPage = () => {
   const [dataList, setDataList] = useState<(keyof Base)[]>([])
   const [noChangeDataList, setNoChangeDataList] = useState([])
 
-  // LocalStorageを復号したデータ、追加するデータ
+  // LocalStorageを復号したデータ
   const [mainData, setMainData] = useState<Base>({})
-  const [addData, setAddData] = useState({})
+  // LocalStorageに追加するデータ
+  const [addData, setAddData] = useState<Base>({})
 
   // パスワード関係のstate
   const [inputPassword1, setInputPassword1] = useState('')
   const [inputPassword2, setInputPassword2] = useState('')
   const [passwordForm, setPasswordForm] = useState('')
   const [password, setPassword] = useState('')
-
   const [inputPasswordType, setInputPasswordType] = useState('password')
 
   // AES暗号
-  // 鍵生成
+  // パスワードからの鍵生成
   const getKey = async (
     passphrase: string,
     salt: Uint8Array | null = null
@@ -283,7 +284,7 @@ const Home: NextPage = () => {
     }
   }
 
-  // パスワード登録
+  // Feasy初回利用時のパスワード登録
   const register = async () => {
     if (inputPassword1 && inputPassword1 !== inputPassword2) {
       alert('同じパスワードを入力してください')
@@ -300,6 +301,7 @@ const Home: NextPage = () => {
 
   // OKボタンをを押した時
   const post = async () => {
+    // パスワード入力画面の場合
     if (passwordPage) {
       if (!passwordForm) return
       const decrypted = await getData(passwordForm)
@@ -340,7 +342,9 @@ const Home: NextPage = () => {
         })
       }
       return
-    } else {
+    }
+    // 項目確認画面の場合
+    else {
       setMainData({ ...mainData, ...addData })
       const newDecrypted = { ...mainData, ...addData }
 
@@ -370,9 +374,11 @@ const Home: NextPage = () => {
   }, [])
 
   useEffect(() => {
+    // Feasyの利用が初めてかを確認
     if (!localStorage.getItem(localStorageKey)) {
       setFirstTime(true)
     }
+    // 親からURLとデータを受け取る
     window.addEventListener('message', (e) => {
       setHref(e.origin)
       // setDataList(e.data)

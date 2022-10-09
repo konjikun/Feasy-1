@@ -1,3 +1,5 @@
+// テストサーバで秘密鍵を使って署名を作成
+
 import Cors from 'cors'
 import crypto from 'crypto'
 import type { NextApiRequest, NextApiResponse } from 'next'
